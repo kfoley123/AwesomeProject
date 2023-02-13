@@ -16,8 +16,8 @@ export default function App() {
             <TouchableOpacity onPress={() => console.log("image tapped")}>
                 <Image
                     source={{
-                        width: 300,
-                        height: 300,
+                        width: 400,
+                        height: 400,
                         uri: "https://i.pinimg.com/originals/cc/2e/01/cc2e011cc5236801ee8fd6d2fc5dc2c5.jpg",
                     }}
                 />
