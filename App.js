@@ -8,8 +8,11 @@ import {
     View,
     Image,
 } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+import { NavigationContainer } from "@react-navigation/native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
-export default function App() {
+function HomeScreen() {
     return (
         <View style={styles.container}>
             <Text>Hello World!</Text>
@@ -36,6 +39,18 @@ export default function App() {
     );
 }
 
+function SettingsScreen() {
+    return (
+        <View
+            style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+        >
+            <Text>Settings!</Text>
+        </View>
+    );
+}
+
+const Tab = createBottomTabNavigator();
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -44,3 +59,18 @@ const styles = StyleSheet.create({
         justifyContent: "center",
     },
 });
+
+export default function App() {
+    return (
+        <NavigationContainer>
+            <Tab.Navigator>
+                <Tab.Screen
+                    name="Home"
+                    component={HomeScreen}
+                    options={{ tabBarBadge: 3 }}
+                />
+                <Tab.Screen name="Settings" component={SettingsScreen} />
+            </Tab.Navigator>
+        </NavigationContainer>
+    );
+}
