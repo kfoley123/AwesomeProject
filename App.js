@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import {
     StyleSheet,
@@ -11,7 +12,6 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { checkPluginState } from "react-native-reanimated/lib/reanimated2/core";
 
 function HomeScreen() {
     return (
@@ -51,11 +51,16 @@ function SettingsScreen() {
 }
 
 function CalendarScreen() {
+    const [upcomingAppointments, setUpcomingAppointments] = useState([]);
     return (
         <View
             style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
         >
-            <Text>Calendar!</Text>
+            {upcomingAppointments.length ? (
+                <Text>You have {upcomingAppointments.length} appointments</Text>
+            ) : (
+                <Text>You have no upcoming appointments</Text>
+            )}
         </View>
     );
 }
