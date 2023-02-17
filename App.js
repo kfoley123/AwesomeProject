@@ -12,6 +12,7 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import DateTimePicker from "@react-native-community/datetimepicker";
 
 function HomeScreen() {
     return (
@@ -52,16 +53,52 @@ function SettingsScreen() {
 
 function CalendarScreen() {
     const [upcomingAppointments, setUpcomingAppointments] = useState([]);
+    const [mydate, setDate] = useState(new Date());
+    const [displaymode, setMode] = useState("date");
+    const [isDisplayDate, setShow] = useState(false);
+    const changeSelectedDate = (event, selectedDate) => {
+        const currentDate = selectedDate || mydate;
+        setDate(currentDate);
+    };
+    const showMode = (currentMode) => {
+        setShow(true);
+        setMode(currentMode);
+    };
+    const displayDatepicker = () => {
+        showMode("date");
+    };
     return (
-        <View
-            style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
-        >
-            {upcomingAppointments.length ? (
-                <Text>You have {upcomingAppointments.length} appointments</Text>
-            ) : (
-                <Text>You have no upcoming appointments</Text>
+        <>
+            <View
+                style={{
+                    flex: 1,
+                    justifyContent: "center",
+                    alignItems: "center",
+                }}
+            >
+                {upcomingAppointments.length ? (
+                    <Text>
+                        You have {upcomingAppointments.length} appointment(s)
+                    </Text>
+                ) : (
+                    <Text>You have no upcoming appointments</Text>
+                )}
+            </View>
+
+            <View>
+                <Button onPress={displayDatepicker} title="Book Appointment" />
+            </View>
+            {isDisplayDate && (
+                <DateTimePicker
+                    testID="dateTimePicker"
+                    value={mydate}
+                    mode={displaymode}
+                    is24Hour={true}
+                    display="default"
+                    onChange={changeSelectedDate}
+                />
             )}
-        </View>
+        </>
     );
 }
 
