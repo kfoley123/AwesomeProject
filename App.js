@@ -7,6 +7,7 @@ import {
     Text,
     Pressable,
     Button,
+    Form,
     TouchableOpacity,
     View,
     Image,
@@ -18,6 +19,7 @@ import {
     createBottomTabNavigator,
 } from "@react-navigation/bottom-tabs";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import { TextInput } from "react-native-gesture-handler";
 
 function HomeScreen() {
     return (
@@ -66,6 +68,7 @@ function ProfileScreen() {
             />
 
             <Button
+                style={[styles.button]}
                 title="edit profile"
                 onPress={() => setModalVisible(!modalVisible)}
             />
@@ -90,7 +93,7 @@ function ProfileScreen() {
             >
                 <View style={styles.centeredView}>
                     <View style={styles.modalView}>
-                        <Text> Edit Profile</Text>
+                        <Text style={styles.title}> Edit Profile</Text>
                         <Image
                             source={{
                                 uri: "https://i.pinimg.com/originals/cc/2e/01/cc2e011cc5236801ee8fd6d2fc5dc2c5.jpg",
@@ -104,8 +107,9 @@ function ProfileScreen() {
                                 borderRadius: 100,
                             }}
                         />
+
                         <View style={styles.fields}>
-                            <Text>{username} </Text>
+                            <TextInput value={username}></TextInput>
                         </View>
                         <View style={styles.fields}>
                             <Text>{email}</Text>
@@ -117,7 +121,7 @@ function ProfileScreen() {
                             style={[styles.button, styles.buttonClose]}
                             onPress={() => setModalVisible(!modalVisible)}
                         >
-                            <Text style={styles.textStyle}>Close</Text>
+                            <Text style={styles.textStyle}>Done</Text>
                         </Pressable>
                     </View>
                 </View>
@@ -245,7 +249,15 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
     },
-    fields: { alignItems: "center", flexDirection: "row" },
+    button: {
+        backgroundColor: "pink",
+        borderRadius: 20,
+        padding: 10,
+        margin: 5,
+        elevation: 2,
+    },
+    title: { fontSize: "20%", fontWeight: "bold", padding: "2%" },
+    fields: { alignItems: "center", flexDirection: "row", padding: "1%" },
     modalView: {
         margin: 20,
         backgroundColor: "white",
