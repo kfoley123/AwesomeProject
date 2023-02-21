@@ -2,8 +2,10 @@ import { useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import {
     StyleSheet,
+    Modal,
     Alert,
     Text,
+    Pressable,
     Button,
     TouchableOpacity,
     View,
@@ -11,7 +13,10 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { NavigationContainer } from "@react-navigation/native";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import {
+    BottomTabBarHeightCallbackContext,
+    createBottomTabNavigator,
+} from "@react-navigation/bottom-tabs";
 import DateTimePicker from "@react-native-community/datetimepicker";
 
 function HomeScreen() {
@@ -41,12 +46,82 @@ function HomeScreen() {
     );
 }
 
-function SettingsScreen() {
+function ProfileScreen() {
+    const [username, setusername] = useState("set username");
+    const [phoneNumber, setPhoneNumber] = useState("set phone number");
+    const [email, setEmail] = useState("set email");
+    const [modalVisible, setModalVisible] = useState(false);
     return (
-        <View
-            style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
-        >
-            <Text>Settings!</Text>
+        <View style={{ alignItems: "center", paddingTop: "10%" }}>
+            <Image
+                source={{
+                    uri: "https://i.pinimg.com/originals/cc/2e/01/cc2e011cc5236801ee8fd6d2fc5dc2c5.jpg",
+                }}
+                style={{
+                    alignSelf: "center",
+                    width: 100,
+                    height: 100,
+                    borderRadius: 100,
+                }}
+            />
+
+            <Button
+                title="edit profile"
+                onPress={() => setModalVisible(!modalVisible)}
+            />
+            <View style={styles.fields}>
+                <Text>{username} </Text>
+            </View>
+            <View style={styles.fields}>
+                <Text>{email}</Text>
+            </View>
+            <View style={styles.fields}>
+                <Text>{phoneNumber}</Text>
+            </View>
+
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={modalVisible}
+                onRequestClose={() => {
+                    Alert.alert("Modal has been closed.");
+                    setModalVisible(!modalVisible);
+                }}
+            >
+                <View style={styles.centeredView}>
+                    <View style={styles.modalView}>
+                        <Text> Edit Profile</Text>
+                        <Image
+                            source={{
+                                uri: "https://i.pinimg.com/originals/cc/2e/01/cc2e011cc5236801ee8fd6d2fc5dc2c5.jpg",
+                            }}
+                            style={{
+                                alignSelf: "center",
+                                width: 100,
+                                height: 100,
+                                borderWidth: 1,
+                                borderColor: "black",
+                                borderRadius: 100,
+                            }}
+                        />
+                        <View style={styles.fields}>
+                            <Text>{username} </Text>
+                        </View>
+                        <View style={styles.fields}>
+                            <Text>{email}</Text>
+                        </View>
+                        <View style={styles.fields}>
+                            <Text>{phoneNumber}</Text>
+                        </View>
+                        <Pressable
+                            style={[styles.button, styles.buttonClose]}
+                            onPress={() => setModalVisible(!modalVisible)}
+                        >
+                            <Text style={styles.textStyle}>Close</Text>
+                        </Pressable>
+                    </View>
+                </View>
+            </Modal>
         </View>
     );
 }
@@ -85,33 +160,24 @@ function CalendarScreen() {
                 )}
             </View>
 
-            <View>
+            <View style={styles.container}>
                 <Button onPress={displayDatepicker} title="Book Appointment" />
+                {isDisplayDate && (
+                    <DateTimePicker
+                        testID="dateTimePicker"
+                        value={mydate}
+                        mode={displaymode}
+                        is24Hour={true}
+                        display="default"
+                        onChange={changeSelectedDate}
+                    />
+                )}
             </View>
-            {isDisplayDate && (
-                <DateTimePicker
-                    testID="dateTimePicker"
-                    value={mydate}
-                    mode={displaymode}
-                    is24Hour={true}
-                    display="default"
-                    onChange={changeSelectedDate}
-                />
-            )}
         </>
     );
 }
 
 const Tab = createBottomTabNavigator();
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: "#fff",
-        alignItems: "center",
-        justifyContent: "center",
-    },
-});
 
 export default function App() {
     return (
@@ -131,11 +197,13 @@ export default function App() {
                                     color={color}
                                 />
                             );
-                        } else if (route.name === "Settings") {
+                        } else if (route.name === "Profile") {
                             return (
                                 <Ionicons
                                     name={
-                                        focused ? "ios-list-sharp" : "ios-list"
+                                        focused
+                                            ? "person-circle-sharp"
+                                            : "person-circle-outline"
                                     }
                                     size={size}
                                     color={color}
@@ -164,9 +232,45 @@ export default function App() {
                     component={HomeScreen}
                     options={{ tabBarBadge: 45 }}
                 />
-                <Tab.Screen name="Settings" component={SettingsScreen} />
+                <Tab.Screen name="Profile" component={ProfileScreen} />
                 <Tab.Screen name="Calendar" component={CalendarScreen} />
             </Tab.Navigator>
         </NavigationContainer>
     );
 }
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: "#fff",
+        alignItems: "center",
+        justifyContent: "center",
+    },
+    fields: { alignItems: "center", flexDirection: "row" },
+    modalView: {
+        margin: 20,
+        backgroundColor: "white",
+        borderRadius: 20,
+        padding: 50,
+        alignItems: "center",
+        shadowColor: "#000",
+        height: "100%",
+        width: "100%",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5,
+    },
+    centeredView: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        marginTop: 22,
+    },
+    modalText: {
+        marginBottom: 15,
+        textAlign: "center",
+    },
+});
