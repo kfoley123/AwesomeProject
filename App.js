@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { StatusBar } from "expo-status-bar";
 import {
     StyleSheet,
     Modal,
@@ -20,36 +19,10 @@ import {
 } from "@react-navigation/bottom-tabs";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { TextInput } from "react-native-gesture-handler";
-
-function HomeScreen() {
-    return (
-        <View style={styles.container}>
-            <Text>Hello World!</Text>
-            <TouchableOpacity onPress={() => console.log("image tapped")}>
-                <Image
-                    source={{
-                        width: 400,
-                        height: 400,
-                        uri: "https://i.pinimg.com/originals/cc/2e/01/cc2e011cc5236801ee8fd6d2fc5dc2c5.jpg",
-                    }}
-                />
-            </TouchableOpacity>
-            <Button
-                title="Click Me"
-                onPress={() =>
-                    Alert.alert("Title", "My Message", [
-                        { text: "Yes" },
-                        { text: "No" },
-                    ])
-                }
-            />
-            <StatusBar style="auto" />
-        </View>
-    );
-}
+import Notifications from "./Screens/Notifications/Notifications";
 
 function ProfileScreen() {
-    const [username, setusername] = useState("set username");
+    const [username, setUsername] = useState("set username");
     const [phoneNumber, setPhoneNumber] = useState("set phone number");
     const [email, setEmail] = useState("set email");
     const [modalVisible, setModalVisible] = useState(false);
@@ -109,10 +82,17 @@ function ProfileScreen() {
                         />
 
                         <View style={styles.fields}>
-                            <TextInput value={username}></TextInput>
+                            <TextInput
+                                onChangeText={setUsername}
+                                value={username}
+                            ></TextInput>
                         </View>
                         <View style={styles.fields}>
-                            <Text>{email}</Text>
+                            <TextInput
+                                onChangeText={setEmail}
+                                value={email}
+                                inputMode={email}
+                            ></TextInput>
                         </View>
                         <View style={styles.fields}>
                             <Text>{phoneNumber}</Text>
@@ -189,7 +169,7 @@ export default function App() {
             <Tab.Navigator
                 screenOptions={({ route }) => ({
                     tabBarIcon: ({ focused, color, size }) => {
-                        if (route.name === "Home") {
+                        if (route.name === "Notifications") {
                             return (
                                 <Ionicons
                                     name={
@@ -232,8 +212,8 @@ export default function App() {
                 })}
             >
                 <Tab.Screen
-                    name="Home"
-                    component={HomeScreen}
+                    name="Notifications"
+                    component={Notifications}
                     options={{ tabBarBadge: 45 }}
                 />
                 <Tab.Screen name="Profile" component={ProfileScreen} />
