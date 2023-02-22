@@ -4,18 +4,32 @@ import {
     Modal,
     Alert,
     Text,
+    TextInput,
     Pressable,
     Button,
     View,
     Image,
 } from "react-native";
-import { TextInput } from "react-native-gesture-handler";
+import { useForm, Controller } from "react-hook-form";
 
 export default function UserProfile() {
     const [username, setUsername] = useState("set username");
     const [phoneNumber, setPhoneNumber] = useState("set phone number");
     const [email, setEmail] = useState("set email");
     const [modalVisible, setModalVisible] = useState(false);
+
+    const {
+        control,
+        handleSubmit,
+        formState: { errors },
+    } = useForm({
+        defaultValues: {
+            firstName: "fukc",
+            lastName: "fuck",
+        },
+    });
+    const onSubmit = (data) => console.log(data);
+
     return (
         <View style={{ alignItems: "center", paddingTop: "10%" }}>
             <Image
@@ -70,23 +84,48 @@ export default function UserProfile() {
                                 borderRadius: 100,
                             }}
                         />
+                        <Controller
+                            control={control}
+                            rules={{
+                                required: true,
+                            }}
+                            render={({
+                                field: { onChange, onBlur, value },
+                            }) => (
+                                <TextInput
+                                    style={styles.input}
+                                    onBlur={onBlur}
+                                    onChangeText={onChange}
+                                    value={value}
+                                />
+                            )}
+                            name="firstName"
+                        />
+                        {errors.firstName && <Text>This is required.</Text>}
 
-                        <View style={styles.fields}>
-                            <TextInput
-                                onChangeText={setUsername}
-                                value={username}
-                            ></TextInput>
-                        </View>
-                        <View style={styles.fields}>
-                            <TextInput
-                                onChangeText={setEmail}
-                                value={email}
-                                inputMode={email}
-                            ></TextInput>
-                        </View>
-                        <View style={styles.fields}>
-                            <Text>{phoneNumber}</Text>
-                        </View>
+                        <Controller
+                            control={control}
+                            rules={{
+                                maxLength: 100,
+                            }}
+                            render={({
+                                field: { onChange, onBlur, value },
+                            }) => (
+                                <TextInput
+                                    style={styles.input}
+                                    onBlur={onBlur}
+                                    onChangeText={onChange}
+                                    value={value}
+                                />
+                            )}
+                            name="lastName"
+                        />
+
+                        <Button
+                            title="Submit"
+                            onPress={handleSubmit(onSubmit)}
+                        />
+
                         <Pressable
                             style={[styles.button, styles.buttonClose]}
                             onPress={() => setModalVisible(!modalVisible)}
