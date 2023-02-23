@@ -4,6 +4,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Notifications from "./Screens/Notifications/Notifications";
 import UserProfile from "./Screens/UserProfile/UserProfile";
 import UserCalendar from "./Screens/UserCalendar/UserCalendar";
+import UserHomeScreen from "./Screens/UserHomeScreen/UserHomeScreen";
 
 const Tab = createBottomTabNavigator();
 
@@ -49,6 +50,16 @@ export default function App() {
                                     color={color}
                                 />
                             );
+                        } else if (route.name === "Home") {
+                            return (
+                                <Ionicons
+                                    name={
+                                        focused ? "home-sharp" : "home-outline"
+                                    }
+                                    size={size}
+                                    color={color}
+                                />
+                            );
                         }
                     },
                     tabBarInactiveTintColor: "gray",
@@ -58,8 +69,9 @@ export default function App() {
                 <Tab.Screen
                     name="Notifications"
                     component={Notifications}
-                    options={{ tabBarBadge: 45 }}
+                    options={{ tabBarBadge: 15 }}
                 />
+                <Tab.Screen name="Home" component={UserHomeScreen} />
                 <Tab.Screen name="Profile" component={UserProfile} />
                 <Tab.Screen name="Calendar" component={UserCalendar} />
             </Tab.Navigator>
