@@ -4,18 +4,42 @@ import {
     Modal,
     Alert,
     Text,
+    TextInput,
     Pressable,
     Button,
     View,
     Image,
 } from "react-native";
-import { TextInput } from "react-native-gesture-handler";
+import { useForm, Controller } from "react-hook-form";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function UserProfile() {
-    const [username, setUsername] = useState("set username");
-    const [phoneNumber, setPhoneNumber] = useState("set phone number");
-    const [email, setEmail] = useState("set email");
+    const [userData, setUserData] = useState({
+        username: "Your Name",
+        email: "example@example.com",
+        phoneNumber: "5555555555",
+    });
+
     const [modalVisible, setModalVisible] = useState(false);
+
+    const {
+        control,
+        handleSubmit,
+        formState: { errors },
+    } = useForm({
+        defaultValues: {
+            name: userData.username,
+            email: userData.email,
+            phoneNumber: userData.phoneNumber,
+        },
+    });
+
+    const onSubmit = (data) =>
+        setUserData((prevData) => ({
+            ...prevData,
+            ...data,
+        }));
+
     return (
         <View style={{ alignItems: "center", paddingTop: "10%" }}>
             <Image
@@ -36,13 +60,13 @@ export default function UserProfile() {
                 onPress={() => setModalVisible(!modalVisible)}
             />
             <View style={styles.fields}>
-                <Text>{username} </Text>
+                <Text>{userData.username} </Text>
             </View>
             <View style={styles.fields}>
-                <Text>{email}</Text>
+                <Text>{userData.email}</Text>
             </View>
             <View style={styles.fields}>
-                <Text>{phoneNumber}</Text>
+                <Text>{userData.phoneNumber}</Text>
             </View>
 
             <Modal
@@ -70,29 +94,94 @@ export default function UserProfile() {
                                 borderRadius: 100,
                             }}
                         />
+                        <Controller
+                            control={control}
+                            rules={{
+                                required: true,
+                            }}
+                            render={({
+                                field: { onChange, onBlur, value },
+                            }) => (
+                                <TextInput
+                                    style={styles.input}
+                                    onBlur={onBlur}
+                                    onChangeText={onChange}
+                                    value={value}
+                                    reValidateMode={onChange}
+                                />
+                            )}
+                            name="name"
+                        />
+                        {errors.name && <Text>Name is required.</Text>}
 
-                        <View style={styles.fields}>
-                            <TextInput
-                                onChangeText={setUsername}
-                                value={username}
-                            ></TextInput>
+                        <Controller
+                            control={control}
+                            rules={{
+                                maxLength: 100,
+                                required: true,
+                                pattern: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
+                            }}
+                            render={({
+                                field: { onChange, onBlur, value },
+                            }) => (
+                                <TextInput
+                                    style={styles.input}
+                                    onBlur={onBlur}
+                                    onChangeText={onChange}
+                                    value={value}
+                                    reValidateMode={onChange}
+                                />
+                            )}
+                            name="email"
+                        />
+                        {errors.email && (
+                            <Text>A valid email is required.</Text>
+                        )}
+
+                        <Controller
+                            control={control}
+                            rules={{
+                                required: true,
+                                minLength: 9,
+                                maxLength: 10,
+                            }}
+                            render={({
+                                field: { onChange, onBlur, value },
+                            }) => (
+                                <TextInput
+                                    style={styles.input}
+                                    onBlur={onBlur}
+                                    onChangeText={onChange}
+                                    value={value}
+                                    reValidateMode={onChange}
+                                />
+                            )}
+                            name="phoneNumber"
+                        />
+                        {errors.phoneNumber && (
+                            <Text>Valid phone number is required.</Text>
+                        )}
+
+                        <View style={styles.buttons}>
+                            <Pressable
+                                style={[styles.button, styles.buttonClose]}
+                                onPress={() => {
+                                    setModalVisible(!modalVisible);
+                                }}
+                            >
+                                <Text style={styles.textStyle}>Cancel</Text>
+                            </Pressable>
+
+                            <Pressable
+                                style={[styles.button, styles.buttonClose]}
+                                onPress={() => {
+                                    setModalVisible(!modalVisible);
+                                    handleSubmit(onSubmit)();
+                                }}
+                            >
+                                <Text style={styles.textStyle}>Done</Text>
+                            </Pressable>
                         </View>
-                        <View style={styles.fields}>
-                            <TextInput
-                                onChangeText={setEmail}
-                                value={email}
-                                inputMode={email}
-                            ></TextInput>
-                        </View>
-                        <View style={styles.fields}>
-                            <Text>{phoneNumber}</Text>
-                        </View>
-                        <Pressable
-                            style={[styles.button, styles.buttonClose]}
-                            onPress={() => setModalVisible(!modalVisible)}
-                        >
-                            <Text style={styles.textStyle}>Done</Text>
-                        </Pressable>
                     </View>
                 </View>
             </Modal>
@@ -107,37 +196,42 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
     },
+    input: {
+        backgroundColor: "white",
+        borderColor: "black",
+        height: 40,
+        padding: 10,
+        borderRadius: 4,
+        margin: 10,
+    },
     button: {
         backgroundColor: "pink",
-        borderRadius: 20,
+        justifyContent: "center",
+        borderRadius: 100,
         padding: 10,
         margin: 5,
         elevation: 2,
     },
-    title: { fontSize: "20%", fontWeight: "bold", padding: "2%" },
+    title: {
+        fontSize: "20%",
+        fontWeight: "bold",
+        paddingBottom: 25,
+        textAlign: "center",
+    },
     fields: { alignItems: "center", flexDirection: "row", padding: "1%" },
+    buttons: { flexDirection: "row", justifyContent: "center" },
     modalView: {
         margin: 20,
-        backgroundColor: "white",
-        borderRadius: 20,
-        padding: 50,
-        alignItems: "center",
-        shadowColor: "#000",
+        backgroundColor: "lightgrey",
+        paddingHorizontal: 50,
+        paddingTop: 60,
         height: "100%",
         width: "100%",
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 4,
-        elevation: 5,
     },
     centeredView: {
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
-        marginTop: 22,
     },
     modalText: {
         marginBottom: 15,
