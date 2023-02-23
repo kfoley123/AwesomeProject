@@ -11,6 +11,7 @@ import {
     Image,
 } from "react-native";
 import { useForm, Controller } from "react-hook-form";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function UserProfile() {
     const [userData, setUserData] = useState({
@@ -161,15 +162,26 @@ export default function UserProfile() {
                             <Text>Valid phone number is required.</Text>
                         )}
 
-                        <Pressable
-                            style={[styles.button, styles.buttonClose]}
-                            onPress={() => {
-                                setModalVisible(!modalVisible);
-                                handleSubmit(onSubmit)();
-                            }}
-                        >
-                            <Text style={styles.textStyle}>Done</Text>
-                        </Pressable>
+                        <View style={styles.buttons}>
+                            <Pressable
+                                style={[styles.button, styles.buttonClose]}
+                                onPress={() => {
+                                    setModalVisible(!modalVisible);
+                                }}
+                            >
+                                <Text style={styles.textStyle}>Cancel</Text>
+                            </Pressable>
+
+                            <Pressable
+                                style={[styles.button, styles.buttonClose]}
+                                onPress={() => {
+                                    setModalVisible(!modalVisible);
+                                    handleSubmit(onSubmit)();
+                                }}
+                            >
+                                <Text style={styles.textStyle}>Done</Text>
+                            </Pressable>
+                        </View>
                     </View>
                 </View>
             </Modal>
@@ -185,43 +197,41 @@ const styles = StyleSheet.create({
         justifyContent: "center",
     },
     input: {
-        backgroundColor: "grey",
-        borderColor: "none",
+        backgroundColor: "white",
+        borderColor: "black",
         height: 40,
         padding: 10,
         borderRadius: 4,
+        margin: 10,
     },
     button: {
         backgroundColor: "pink",
-        borderRadius: 20,
+        justifyContent: "center",
+        borderRadius: 100,
         padding: 10,
         margin: 5,
         elevation: 2,
     },
-    title: { fontSize: "20%", fontWeight: "bold", padding: "2%" },
+    title: {
+        fontSize: "20%",
+        fontWeight: "bold",
+        paddingBottom: 25,
+        textAlign: "center",
+    },
     fields: { alignItems: "center", flexDirection: "row", padding: "1%" },
+    buttons: { flexDirection: "row", justifyContent: "center" },
     modalView: {
         margin: 20,
-        backgroundColor: "white",
-        borderRadius: 20,
-        padding: 50,
-        alignItems: "center",
-        shadowColor: "#000",
+        backgroundColor: "lightgrey",
+        paddingHorizontal: 50,
+        paddingTop: 60,
         height: "100%",
         width: "100%",
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 4,
-        elevation: 5,
     },
     centeredView: {
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
-        marginTop: 22,
     },
     modalText: {
         marginBottom: 15,
