@@ -13,9 +13,12 @@ import {
 import { useForm, Controller } from "react-hook-form";
 
 export default function UserProfile() {
-    const [username, setUsername] = useState("set username");
-    const [phoneNumber, setPhoneNumber] = useState("set phone number");
-    const [email, setEmail] = useState("set email");
+    const [userData, setUserData] = useState({
+        username: "Your Name",
+        email: "example@example.com",
+        phoneNumber: "5555555555",
+    });
+
     const [modalVisible, setModalVisible] = useState(false);
 
     const {
@@ -24,11 +27,17 @@ export default function UserProfile() {
         formState: { errors },
     } = useForm({
         defaultValues: {
-            firstName: "fukc",
-            lastName: "fuck",
+            name: userData.username,
+            email: userData.email,
+            phoneNumber: userData.phoneNumber,
         },
     });
-    const onSubmit = (data) => console.log(data);
+
+    const onSubmit = (data) =>
+        setUserData((prevData) => ({
+            ...prevData,
+            ...data,
+        }));
 
     return (
         <View style={{ alignItems: "center", paddingTop: "10%" }}>
@@ -50,13 +59,13 @@ export default function UserProfile() {
                 onPress={() => setModalVisible(!modalVisible)}
             />
             <View style={styles.fields}>
-                <Text>{username} </Text>
+                <Text>{userData.username} </Text>
             </View>
             <View style={styles.fields}>
-                <Text>{email}</Text>
+                <Text>{userData.email}</Text>
             </View>
             <View style={styles.fields}>
-                <Text>{phoneNumber}</Text>
+                <Text>{userData.phoneNumber}</Text>
             </View>
 
             <Modal
@@ -97,16 +106,19 @@ export default function UserProfile() {
                                     onBlur={onBlur}
                                     onChangeText={onChange}
                                     value={value}
+                                    reValidateMode={onChange}
                                 />
                             )}
-                            name="firstName"
+                            name="name"
                         />
-                        {errors.firstName && <Text>This is required.</Text>}
+                        {errors.name && <Text>Name is required.</Text>}
 
                         <Controller
                             control={control}
                             rules={{
                                 maxLength: 100,
+                                required: true,
+                                pattern: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
                             }}
                             render={({
                                 field: { onChange, onBlur, value },
@@ -116,19 +128,45 @@ export default function UserProfile() {
                                     onBlur={onBlur}
                                     onChangeText={onChange}
                                     value={value}
+                                    reValidateMode={onChange}
                                 />
                             )}
-                            name="lastName"
+                            name="email"
                         />
+                        {errors.email && (
+                            <Text>A valid email is required.</Text>
+                        )}
 
-                        <Button
-                            title="Submit"
-                            onPress={handleSubmit(onSubmit)}
+                        <Controller
+                            control={control}
+                            rules={{
+                                required: true,
+                                minLength: 9,
+                                maxLength: 10,
+                            }}
+                            render={({
+                                field: { onChange, onBlur, value },
+                            }) => (
+                                <TextInput
+                                    style={styles.input}
+                                    onBlur={onBlur}
+                                    onChangeText={onChange}
+                                    value={value}
+                                    reValidateMode={onChange}
+                                />
+                            )}
+                            name="phoneNumber"
                         />
+                        {errors.phoneNumber && (
+                            <Text>Valid phone number is required.</Text>
+                        )}
 
                         <Pressable
                             style={[styles.button, styles.buttonClose]}
-                            onPress={() => setModalVisible(!modalVisible)}
+                            onPress={() => {
+                                setModalVisible(!modalVisible);
+                                handleSubmit(onSubmit)();
+                            }}
                         >
                             <Text style={styles.textStyle}>Done</Text>
                         </Pressable>
@@ -145,6 +183,13 @@ const styles = StyleSheet.create({
         backgroundColor: "#fff",
         alignItems: "center",
         justifyContent: "center",
+    },
+    input: {
+        backgroundColor: "grey",
+        borderColor: "none",
+        height: 40,
+        padding: 10,
+        borderRadius: 4,
     },
     button: {
         backgroundColor: "pink",
