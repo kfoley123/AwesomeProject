@@ -12,7 +12,6 @@ import {
 export default function Notifications() {
     return (
         <View style={styles.container}>
-            <Text>Hello World!</Text>
             <TouchableOpacity onPress={() => console.log("image tapped")}>
                 <Image
                     source={{
