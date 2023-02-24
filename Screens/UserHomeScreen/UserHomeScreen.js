@@ -1,6 +1,13 @@
 import { useState } from "react";
-import { StyleSheet, Text, Button, View, TouchableOpacity } from "react-native";
-import Pressable from "react-native/Libraries/Components/Pressable/Pressable";
+import {
+    StyleSheet,
+    Text,
+    Pressable,
+    View,
+    TouchableOpacity,
+    Image,
+} from "react-native";
+import { createStackNavigator, createAppContainer } from "react-navigation";
 
 export default function UserHomeScreen() {
     const [upcomingAppointments, setUpcomingAppointments] = useState([
@@ -13,6 +20,19 @@ export default function UserHomeScreen() {
     const [waitlistRequests, setWaitlistRequests] = useState([]);
     return (
         <View style={styles.container}>
+            <Pressable onPress={() => console.log("image tapped xxxx")}>
+                <Image
+                    source={{
+                        uri: "https://i.pinimg.com/originals/cc/2e/01/cc2e011cc5236801ee8fd6d2fc5dc2c5.jpg",
+                    }}
+                    style={{
+                        width: 50,
+                        height: 50,
+                        borderRadius: 100,
+                    }}
+                />
+            </Pressable>
+
             <View style={styles.upcomingAppointments}>
                 <Text style={styles.header}>Upcoming Appointments:</Text>
                 {upcomingAppointments.length ? (
