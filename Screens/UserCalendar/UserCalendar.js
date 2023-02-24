@@ -4,7 +4,6 @@ import { StyleSheet, Text, Button, View } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 
 export default function UserCalendar() {
-    const [upcomingAppointments, setUpcomingAppointments] = useState([]);
     const [mydate, setDate] = useState(new Date());
     const [displaymode, setMode] = useState("date");
     const [isDisplayDate, setShow] = useState(false);
@@ -21,22 +20,6 @@ export default function UserCalendar() {
     };
     return (
         <>
-            <View
-                style={{
-                    flex: 1,
-                    justifyContent: "center",
-                    alignItems: "center",
-                }}
-            >
-                {upcomingAppointments.length ? (
-                    <Text>
-                        You have {upcomingAppointments.length} appointment(s)
-                    </Text>
-                ) : (
-                    <Text>You have no upcoming appointments</Text>
-                )}
-            </View>
-
             <View style={styles.container}>
                 <Button onPress={displayDatepicker} title="Book Appointment" />
                 {isDisplayDate && (
