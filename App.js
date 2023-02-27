@@ -104,9 +104,13 @@ export default function App() {
                                         uri: "https://i.pinimg.com/originals/cc/2e/01/cc2e011cc5236801ee8fd6d2fc5dc2c5.jpg",
                                     }}
                                     style={{
-                                        width: 50,
-                                        height: 50,
+                                        width: 40,
+                                        height: 40,
+                                        borderColor: "black",
+                                        borderWidth: 0.5,
                                         borderRadius: 100,
+                                        marginRight: 21,
+                                        marginBottom: 15,
                                     }}
                                 />
                             </Pressable>
