@@ -7,9 +7,10 @@ import {
     TouchableOpacity,
     Image,
 } from "react-native";
-import { createStackNavigator, createAppContainer } from "react-navigation";
 
-export default function UserHomeScreen() {
+import UserProfile from "../UserProfile/UserProfile";
+
+export default function UserHomeScreen({ navigation }) {
     const [upcomingAppointments, setUpcomingAppointments] = useState([
         { date: "July 9th", startTime: 10, endTime: 5, images: "", notes: "" },
         { date: "Aug 9th", startTime: 10, endTime: 5, images: "", notes: "" },
@@ -20,7 +21,7 @@ export default function UserHomeScreen() {
     const [waitlistRequests, setWaitlistRequests] = useState([]);
     return (
         <View style={styles.container}>
-            <Pressable onPress={() => console.log("image tapped xxxx")}>
+            <Pressable onPress={() => navigation.navigate("Profile")}>
                 <Image
                     source={{
                         uri: "https://i.pinimg.com/originals/cc/2e/01/cc2e011cc5236801ee8fd6d2fc5dc2c5.jpg",
