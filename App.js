@@ -10,6 +10,7 @@ import Notifications from "./Screens/Notifications/Notifications";
 import UserProfile from "./Screens/UserProfile/UserProfile";
 import UserCalendar from "./Screens/UserCalendar/UserCalendar";
 import UserHomeScreen from "./Screens/UserHomeScreen/UserHomeScreen";
+import UserSettings from "./Screens/UserSettings/UserSettings";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -117,7 +118,7 @@ export default function App() {
                         ),
                         headerLeft: () => (
                             <Pressable
-                                onPress={() => navigation.navigate("Profile")}
+                                onPress={() => navigation.navigate("Settings")}
                             >
                                 <Ionicons
                                     name={"md-settings-outline"}
@@ -134,8 +135,13 @@ export default function App() {
                 />
                 <Stack.Screen
                     name="Profile"
-                    options={({ navigation }) => ({ headerBackTitle: "Back" })}
+                    options={() => ({ headerBackTitle: "Back" })}
                     component={UserProfile}
+                />
+                <Stack.Screen
+                    name="Settings"
+                    options={() => ({ headerBackTitle: "Back" })}
+                    component={UserSettings}
                 />
             </Stack.Navigator>
         </NavigationContainer>
