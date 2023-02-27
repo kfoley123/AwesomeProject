@@ -16,6 +16,7 @@ const Stack = createStackNavigator();
 
 function getHeaderTitle(route) {
     const routeName = getFocusedRouteNameFromRoute(route);
+
     return routeName;
 }
 
@@ -73,13 +74,14 @@ function TabsComponent({ navigation }) {
                 tabBarActiveTintColor: "tomato",
             })}
         >
+            <Tab.Screen name="Home" component={UserHomeScreen} />
+
+            <Tab.Screen name="Calendar" component={UserCalendar} />
             <Tab.Screen
                 name="Notifications"
                 component={Notifications}
                 options={{ tabBarBadge: 15 }}
             />
-            <Tab.Screen name="Home" component={UserHomeScreen} />
-            <Tab.Screen name="Calendar" component={UserCalendar} />
         </Tab.Navigator>
     );
 }
@@ -89,7 +91,7 @@ export default function App() {
         <NavigationContainer>
             <Stack.Navigator>
                 <Stack.Screen
-                    name="Tabs"
+                    name="Home"
                     component={TabsComponent}
                     options={({ navigation, route }) => ({
                         headerTitle: getHeaderTitle(route),
@@ -111,7 +113,11 @@ export default function App() {
                         ),
                     })}
                 />
-                <Stack.Screen name="Profile" component={UserProfile} />
+                <Stack.Screen
+                    name="Profile"
+                    options={({ navigation }) => ({ headerBackTitle: "Back" })}
+                    component={UserProfile}
+                />
             </Stack.Navigator>
         </NavigationContainer>
     );
