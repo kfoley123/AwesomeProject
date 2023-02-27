@@ -115,6 +115,21 @@ export default function App() {
                                 />
                             </Pressable>
                         ),
+                        headerLeft: () => (
+                            <Pressable
+                                onPress={() => navigation.navigate("Profile")}
+                            >
+                                <Ionicons
+                                    name={"md-settings-outline"}
+                                    style={{
+                                        color: "dimgray",
+                                        fontSize: 25,
+                                        height: 38,
+                                        marginLeft: 20,
+                                    }}
+                                />
+                            </Pressable>
+                        ),
                     })}
                 />
                 <Stack.Screen
