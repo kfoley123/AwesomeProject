@@ -8,9 +8,7 @@ import {
     Image,
 } from "react-native";
 
-import UserProfile from "../UserProfile/UserProfile";
-
-export default function UserHomeScreen({ navigation }) {
+export default function UserHomeScreen() {
     const [upcomingAppointments, setUpcomingAppointments] = useState([
         { date: "July 9th", startTime: 10, endTime: 5, images: "", notes: "" },
         { date: "Aug 9th", startTime: 10, endTime: 5, images: "", notes: "" },
@@ -21,19 +19,6 @@ export default function UserHomeScreen({ navigation }) {
     const [waitlistRequests, setWaitlistRequests] = useState([]);
     return (
         <View style={styles.container}>
-            <Pressable onPress={() => navigation.navigate("Profile")}>
-                <Image
-                    source={{
-                        uri: "https://i.pinimg.com/originals/cc/2e/01/cc2e011cc5236801ee8fd6d2fc5dc2c5.jpg",
-                    }}
-                    style={{
-                        width: 50,
-                        height: 50,
-                        borderRadius: 100,
-                    }}
-                />
-            </Pressable>
-
             <View style={styles.upcomingAppointments}>
                 <Text style={styles.header}>Upcoming Appointments:</Text>
                 {upcomingAppointments.length ? (
