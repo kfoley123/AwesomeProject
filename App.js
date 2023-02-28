@@ -75,7 +75,11 @@ function TabsComponent({ navigation }) {
                 tabBarActiveTintColor: "tomato",
             })}
         >
-            <Tab.Screen name="Home" component={UserHomeScreen} />
+            <Tab.Screen
+                name="Home"
+                component={UserHomeScreen}
+                props={{ navigation }}
+            />
 
             <Tab.Screen name="Calendar" component={UserCalendar} />
             <Tab.Screen

@@ -6,8 +6,9 @@ import {
     View,
     TouchableOpacity,
 } from "react-native";
+import UserSettings from "../UserSettings/UserSettings";
 
-export default function UserHomeScreen() {
+export default function UserHomeScreen({ navigation }) {
     const [upcomingAppointments, setUpcomingAppointments] = useState([
         { date: "July 9th", startTime: 10, endTime: 5, images: "", notes: "" },
         { date: "Aug 9th", startTime: 10, endTime: 5, images: "", notes: "" },
@@ -47,9 +48,9 @@ export default function UserHomeScreen() {
             >
                 <Text style={styles.header}> Waitlist Requests</Text>
                 <Text> You will be notified by email.</Text>
-                {/* TODO: add link to setting view or modal */}
+
                 <TouchableOpacity
-                    onPress={() => console.log("update notifications tapped")}
+                    onPress={() => navigation.navigate("Settings")}
                 >
                     <Text
                         style={{
