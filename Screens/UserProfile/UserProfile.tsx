@@ -40,8 +40,6 @@ export default function UserProfile() {
             ...data,
         }));
 
-    // const onSubmit = (data) => console.log(data);
-
     return (
         <View style={{ alignItems: "center", paddingTop: "10%" }}>
             <Image
@@ -153,10 +151,7 @@ export default function UserProfile() {
                                     style={styles.input}
                                     onBlur={onBlur}
                                     keyboardType={"numeric"}
-                                    onChangeText={(value) => {
-                                        console.log(errors);
-                                        onChange(value);
-                                    }}
+                                    onChangeText={onChange}
                                     value={value}
                                 />
                             )}
