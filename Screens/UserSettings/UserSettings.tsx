@@ -6,7 +6,7 @@ export default function UserSetting() {
     const [SMSChecked, setSMSChecked] = useState(false);
     const [isChecked, setChecked] = useState(true);
     return (
-        <View style={styles.container}>
+        <View>
             <Text style={styles.header}> Notification Preferences</Text>
             <View style={styles.checkboxContainer}>
                 <Checkbox

@@ -6,7 +6,6 @@ import {
     View,
     TouchableOpacity,
 } from "react-native";
-import UserSettings from "../UserSettings/UserSettings";
 
 export default function UserHomeScreen({ navigation }) {
     const [upcomingAppointments, setUpcomingAppointments] = useState([

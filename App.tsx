@@ -11,8 +11,9 @@ import UserProfile from "./Screens/UserProfile/UserProfile";
 import UserCalendar from "./Screens/UserCalendar/UserCalendar";
 import UserHomeScreen from "./Screens/UserHomeScreen/UserHomeScreen";
 import UserSettings from "./Screens/UserSettings/UserSettings";
+import { BottomTabNavigatorParamList } from "./Types";
 
-const Tab = createBottomTabNavigator();
+const Tab = createBottomTabNavigator<BottomTabNavigatorParamList>();
 const Stack = createStackNavigator();
 
 function getHeaderTitle(route) {
@@ -41,18 +42,6 @@ function TabsComponent({ navigation }) {
                                 color={color}
                             />
                         );
-                    } else if (route.name === "Profile") {
-                        return (
-                            <Ionicons
-                                name={
-                                    focused
-                                        ? "person-circle-sharp"
-                                        : "person-circle-outline"
-                                }
-                                size={size}
-                                color={color}
-                            />
-                        );
                     } else if (route.name === "Calendar") {
                         return (
                             <Ionicons
@@ -75,11 +64,7 @@ function TabsComponent({ navigation }) {
                 tabBarActiveTintColor: "tomato",
             })}
         >
-            <Tab.Screen
-                name="Home"
-                component={UserHomeScreen}
-                props={{ navigation }}
-            />
+            <Tab.Screen name="Home" component={UserHomeScreen} />
 
             <Tab.Screen name="Calendar" component={UserCalendar} />
             <Tab.Screen
@@ -96,7 +81,7 @@ export default function App() {
         <NavigationContainer>
             <Stack.Navigator>
                 <Stack.Screen
-                    name="Home"
+                    name="Tabs"
                     component={TabsComponent}
                     options={({ navigation, route }) => ({
                         headerTitle: getHeaderTitle(route),
