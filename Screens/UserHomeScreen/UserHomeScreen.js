@@ -58,7 +58,7 @@ export default function UserHomeScreen({ navigation }) {
                             fontWeight: "400",
                         }}
                     >
-                        Update your notifaction preferences
+                        Update your notification preferences
                     </Text>
                 </TouchableOpacity>
                 {waitlistRequests.length ? (
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
 
         alignItems: "center",
     },
-    header: { fontSize: 22, fontWeight: "500", paddingVertical: 12 },
+    header: { fontSize: 18, fontWeight: "600", paddingVertical: 12 },
     homeButtons: {
         backgroundColor: "deepskyblue",
         padding: 10,
