@@ -31,7 +31,11 @@
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
-    "@types/react-native": "^0.71.3"
+    "@types/react-native": "^0.71.3",
+    "@typescript-eslint/eslint-plugin": "^5.54.0",
+    "@typescript-eslint/parser": "^5.54.0",
+    "eslint": "^8.35.0",
+    "eslint-plugin-react": "^7.32.2"
   },
   "private": true
 }

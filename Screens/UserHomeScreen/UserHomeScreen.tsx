@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import {
     StyleSheet,
     Text,
@@ -6,16 +6,17 @@ import {
     View,
     TouchableOpacity,
 } from "react-native";
-
+// TODO
+// eslint-disable-next-line react/prop-types
 export default function UserHomeScreen({ navigation }) {
-    const [upcomingAppointments, setUpcomingAppointments] = useState([
+    const [upcomingAppointments] = useState([
         { date: "July 9th", startTime: 10, endTime: 5, images: "", notes: "" },
         { date: "Aug 9th", startTime: 10, endTime: 5, images: "", notes: "" },
         { date: "Sept 10th", startTime: 10, endTime: 5, images: "", notes: "" },
         { date: "Oct 4th", startTime: 10, endTime: 5, images: "", notes: "" },
     ]);
 
-    const [waitlistRequests, setWaitlistRequests] = useState([]);
+    const [waitlistRequests] = useState([]);
     return (
         <View style={styles.container}>
             <View style={styles.upcomingAppointments}>
@@ -49,6 +50,7 @@ export default function UserHomeScreen({ navigation }) {
                 <Text> You will be notified by email.</Text>
 
                 <TouchableOpacity
+                    // eslint-disable-next-line react/prop-types
                     onPress={() => navigation.navigate("Settings")}
                 >
                     <Text

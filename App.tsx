@@ -1,3 +1,4 @@
+import React from "react";
 import { Pressable, Image } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import {
@@ -5,15 +6,9 @@ import {
     getFocusedRouteNameFromRoute,
 } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import UserTabs from "./Screens/UserTabs/UserTabs";
-import Notifications from "./Screens/Notifications/Notifications";
 import UserProfile from "./Screens/UserProfile/UserProfile";
-import UserCalendar from "./Screens/UserCalendar/UserCalendar";
-import UserHomeScreen from "./Screens/UserHomeScreen/UserHomeScreen";
 import UserSettings from "./Screens/UserSettings/UserSettings";
-
-import { BottomTabNavigatorParamList } from "./Types";
 
 const Stack = createStackNavigator();
 

@@ -1,6 +1,6 @@
+import React from "react";
 import { Text, View, StyleSheet } from "react-native";
 import Checkbox from "expo-checkbox";
-import { useHookstate } from "@hookstate/core";
 import { useSettingsState } from "../../store";
 
 export default function UserSetting() {
