@@ -3,8 +3,8 @@ import { Text, View, StyleSheet } from "react-native";
 import Checkbox from "expo-checkbox";
 
 export default function UserSetting() {
-    const [SMSChecked, setSMSChecked] = useState(false);
-    const [isChecked, setChecked] = useState(true);
+    const [SMSChecked, setSMSChecked] = useState<boolean>(false);
+    const [isChecked, setChecked] = useState();
     return (
         <View>
             <Text style={styles.header}> Notification Preferences</Text>
