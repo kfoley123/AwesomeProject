@@ -1,28 +1,37 @@
-import { useState } from "react";
 import { Text, View, StyleSheet } from "react-native";
 import Checkbox from "expo-checkbox";
+import { useHookstate } from "@hookstate/core";
+import { useSettingsState } from "../../store";
 
 export default function UserSetting() {
-    const [SMSChecked, setSMSChecked] = useState<boolean>(false);
-    const [isChecked, setChecked] = useState();
+    const state = useSettingsState();
+
+    function setSMS() {
+        state.setSMSBoxValue();
+    }
+
+    function setEmail() {
+        state.setEmailBoxValue();
+    }
+
     return (
         <View>
             <Text style={styles.header}> Notification Preferences</Text>
             <View style={styles.checkboxContainer}>
                 <Checkbox
                     style={styles.checkbox}
-                    value={SMSChecked}
-                    onValueChange={setSMSChecked}
-                    color={SMSChecked ? "#4630EB" : undefined}
+                    value={state.getSMSBoxValue()}
+                    onValueChange={setSMS}
+                    color={state.getSMSBoxValue() ? "#4630EB" : undefined}
                 />
                 <Text>SMS Message</Text>
             </View>
             <View style={styles.checkboxContainer}>
                 <Checkbox
                     style={styles.checkbox}
-                    value={isChecked}
-                    onValueChange={setChecked}
-                    color={isChecked ? "#4630EB" : undefined}
+                    value={state.getEmailBoxValue()}
+                    onValueChange={setEmail}
+                    color={state.getEmailBoxValue() ? "#4630EB" : undefined}
                 />
                 <Text>Email</Text>
             </View>
