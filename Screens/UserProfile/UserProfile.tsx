@@ -17,13 +17,11 @@ export default function UserProfile() {
     const state = useUserDataState();
     const user = state.getUserData();
 
-    // const [userData, setUserData] = useState({
-    //     username: "Your Name",
-    //     email: "example@example.com",
-    //     phoneNumber: "5555555555",
-    // });
-
     const [modalVisible, setModalVisible] = useState(false);
+
+    function updateUserData(formData) {
+        state.setUserData(formData);
+    }
 
     const {
         control,
@@ -38,13 +36,7 @@ export default function UserProfile() {
         },
     });
 
-    // const onSubmit = (data) =>
-    //     setUserData((prevData) => ({
-    //         ...prevData,
-    //         ...data,
-    //     }));
-
-    const onSubmit = (data) => console.log(data);
+    const onSubmit = (data) => updateUserData(data);
 
     return (
         <View style={{ alignItems: "center", paddingTop: "10%" }}>
@@ -124,6 +116,7 @@ export default function UserProfile() {
                             rules={{
                                 maxLength: 100,
                                 required: true,
+                                // eslint-disable-next-line no-useless-escape
                                 pattern: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
                             }}
                             render={({

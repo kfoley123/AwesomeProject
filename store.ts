@@ -40,6 +40,6 @@ export const useUserDataState = () => {
     const state = useHookstate(userDataState);
     return {
         getUserData: () => state.value,
-        setUsername: (input) => state.username.set(input),
+        mergeUserData: (formData) => state.set(formData),
     };
 };
