@@ -10,6 +10,7 @@ import UserTabs from "./Screens/UserTabs/UserTabs";
 import UserProfile from "./Screens/UserProfile/UserProfile";
 import UserSettings from "./Screens/UserSettings/UserSettings";
 import SignInScreen from "./Screens/SignInScreen/SignInScreen";
+import { useLoggedInState } from "./store";
 
 const Stack = createStackNavigator();
 
@@ -20,11 +21,12 @@ function getHeaderTitle(route) {
 }
 
 export default function App() {
-    const [isSignedIn] = useState(true);
+    const state = useLoggedInState();
+
     return (
         <NavigationContainer>
             <Stack.Navigator>
-                {isSignedIn ? (
+                {state.getLoggedInState() ? (
                     <>
                         <Stack.Screen
                             name="Tabs"

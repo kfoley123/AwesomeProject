@@ -1,5 +1,7 @@
 import { hookstate, useHookstate } from "@hookstate/core";
 
+// User Settings
+
 export interface SettingsModel {
     SMSBoxChecked: boolean;
     emailBoxChecked: boolean;
@@ -19,6 +21,8 @@ export const useSettingsState = () => {
         setEmailBoxValue: () => state.emailBoxChecked.set((v) => !v),
     };
 };
+
+// User Data
 
 export interface UserDataModel {
     username: string;
@@ -40,6 +44,24 @@ export const useUserDataState = () => {
     const state = useHookstate(userDataState);
     return {
         getUserData: () => state.value,
-        mergeUserData: (formData) => state.set(formData),
+        setUserData: (formData) => state.set(formData),
+    };
+};
+
+// Logged In State
+
+export interface UserLoggedInModel {
+    loggedin: boolean;
+}
+
+const loggedInState = hookstate<UserLoggedInModel>({
+    loggedin: false,
+});
+
+export const useLoggedInState = () => {
+    const state = useHookstate(loggedInState);
+    return {
+        getLoggedInState: () => state.loggedin.value,
+        toggleLoggedInState: () => state.loggedin.set((v) => !v),
     };
 };

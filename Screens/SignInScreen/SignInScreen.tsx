@@ -8,15 +8,31 @@ import {
 } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 import { useForm, Controller } from "react-hook-form";
+import { useLoggedInState, useUserDataState } from "../../store";
 
 export default function SignInScreen() {
+    const userState = useUserDataState();
+    const loggedInState = useLoggedInState();
+
     const {
         control,
         handleSubmit,
         formState: { errors },
     } = useForm({});
 
-    const onSubmit = (data) => console.log(data);
+    const onSubmit = (data) => {
+        //store values user puts in as data
+        // get data from state
+        const userData = userState.getUserData();
+        // check if values from form matches values from state
+        if (
+            userData.email === data.email &&
+            userData.password === data.password
+        ) {
+            loggedInState.toggleLoggedInState();
+        }
+        //if they match change loggedin state to true
+    };
 
     return (
         <SafeAreaView style={styles.container}>
