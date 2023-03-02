@@ -20,7 +20,7 @@ function getHeaderTitle(route) {
 }
 
 export default function App() {
-    const [isSignedIn] = useState(false);
+    const [isSignedIn] = useState(true);
     return (
         <NavigationContainer>
             <Stack.Navigator>

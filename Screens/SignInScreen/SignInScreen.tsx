@@ -1,11 +1,9 @@
 import React from "react";
 import {
-    View,
     Image,
     TouchableOpacity,
     SafeAreaView,
     Text,
-    Pressable,
     StyleSheet,
 } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
@@ -22,11 +20,7 @@ export default function SignInScreen() {
 
     return (
         <SafeAreaView style={styles.container}>
-            <Image
-                source={require("./logo.png")}
-                style={{}}
-                style={styles.logo}
-            />
+            <Image source={require("./logo.png")} style={styles.logo} />
 
             <Controller
                 control={control}
@@ -79,7 +73,6 @@ export default function SignInScreen() {
 const styles = StyleSheet.create({
     container: {
         alignItems: "center",
-        // marginTop: "140%",
         justifyContent: "center",
     },
     logo: { width: 300, height: 300, marginVertical: 35 },

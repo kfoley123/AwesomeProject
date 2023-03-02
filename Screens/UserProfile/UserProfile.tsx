@@ -11,13 +11,17 @@ import {
     Image,
 } from "react-native";
 import { useForm, Controller } from "react-hook-form";
+import { useUserDataState } from "../../store";
 
 export default function UserProfile() {
-    const [userData, setUserData] = useState({
-        username: "Your Name",
-        email: "example@example.com",
-        phoneNumber: "5555555555",
-    });
+    const state = useUserDataState();
+    const user = state.getUserData();
+
+    // const [userData, setUserData] = useState({
+    //     username: "Your Name",
+    //     email: "example@example.com",
+    //     phoneNumber: "5555555555",
+    // });
 
     const [modalVisible, setModalVisible] = useState(false);
 
@@ -28,17 +32,19 @@ export default function UserProfile() {
         reset,
     } = useForm({
         defaultValues: {
-            username: userData.username,
-            email: userData.email,
-            phoneNumber: userData.phoneNumber,
+            username: user.username,
+            email: user.email,
+            phoneNumber: user.phoneNumber,
         },
     });
 
-    const onSubmit = (data) =>
-        setUserData((prevData) => ({
-            ...prevData,
-            ...data,
-        }));
+    // const onSubmit = (data) =>
+    //     setUserData((prevData) => ({
+    //         ...prevData,
+    //         ...data,
+    //     }));
+
+    const onSubmit = (data) => console.log(data);
 
     return (
         <View style={{ alignItems: "center", paddingTop: "10%" }}>
@@ -59,13 +65,13 @@ export default function UserProfile() {
                 onPress={() => setModalVisible(!modalVisible)}
             />
             <View style={styles.fields}>
-                <Text>{userData.username} </Text>
+                <Text>{user.username} </Text>
             </View>
             <View style={styles.fields}>
-                <Text>{userData.email}</Text>
+                <Text>{user.email}</Text>
             </View>
             <View style={styles.fields}>
-                <Text>{userData.phoneNumber}</Text>
+                <Text>{user.phoneNumber}</Text>
             </View>
 
             <Modal
@@ -166,7 +172,7 @@ export default function UserProfile() {
                                 style={styles.button}
                                 onPress={() => {
                                     setModalVisible(!modalVisible);
-                                    reset(userData);
+                                    reset(user);
                                 }}
                             >
                                 <Text>Cancel</Text>
