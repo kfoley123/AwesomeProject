@@ -26,7 +26,7 @@ export default function UserHomeScreen({ navigation }) {
             return "SMS Message and Email";
         } else if (state.getSMSBoxValue()) {
             return "SMS Message";
-        } else if (!state.getEmailBoxValue()) {
+        } else if (state.getEmailBoxValue()) {
             return "Email";
         } else return "Please choose a notification preference";
     }

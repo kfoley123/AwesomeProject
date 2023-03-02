@@ -16,24 +16,27 @@ export default function UserSetting() {
 
     return (
         <View>
-            <Text style={styles.header}> Notification Preferences</Text>
-            <View style={styles.checkboxContainer}>
-                <Checkbox
-                    style={styles.checkbox}
-                    value={state.getSMSBoxValue()}
-                    onValueChange={setSMS}
-                    color={state.getSMSBoxValue() ? "#4630EB" : undefined}
-                />
-                <Text>SMS Message</Text>
-            </View>
-            <View style={styles.checkboxContainer}>
-                <Checkbox
-                    style={styles.checkbox}
-                    value={state.getEmailBoxValue()}
-                    onValueChange={setEmail}
-                    color={state.getEmailBoxValue() ? "#4630EB" : undefined}
-                />
-                <Text>Email</Text>
+            <View>
+                <Text style={styles.header}> Notification Preferences</Text>
+
+                <View style={styles.checkboxContainer}>
+                    <Checkbox
+                        style={styles.checkbox}
+                        value={state.getSMSBoxValue()}
+                        onValueChange={setSMS}
+                        color={state.getSMSBoxValue() ? "#4630EB" : undefined}
+                    />
+                    <Text>SMS Message</Text>
+                </View>
+                <View style={styles.checkboxContainer}>
+                    <Checkbox
+                        style={styles.checkbox}
+                        value={state.getEmailBoxValue()}
+                        onValueChange={setEmail}
+                        color={state.getEmailBoxValue() ? "#4630EB" : undefined}
+                    />
+                    <Text>Email</Text>
+                </View>
             </View>
         </View>
     );
