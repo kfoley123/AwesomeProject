@@ -9,31 +9,42 @@ export default function AdminClientList() {
             username: "Joel Client",
             email: "bob@me.com",
             phoneNumber: "5555555556",
+            appointments: [{ date: "dog" }, { date: "cat" }],
         },
         {
             username: "Cammy White",
             email: "fight@me.com",
             phoneNumber: "5555555557",
+            appointments: [{}],
         },
         {
             username: "Bob Ross",
             email: "bob1@me.com",
             phoneNumber: "5555555558",
+            appointments: [],
         },
         {
             username: "Joel Client",
             email: "bob@me.com",
             phoneNumber: "5555555556",
+            appointments: [],
         },
         {
             username: "Cammy White",
             email: "fight@me.com",
             phoneNumber: "5555555557",
+            appointments: [
+                { date: "dog" },
+                { date: "cat" },
+                { date: "dog" },
+                { date: "cat" },
+            ],
         },
         {
             username: "Bob Ross",
             email: "bob1@me.com",
             phoneNumber: "5555555558",
+            appointments: [],
         },
     ];
     return (
@@ -64,6 +75,31 @@ export default function AdminClientList() {
                                     {client.phoneNumber}
                                 </Text>
                             </View>
+                            <View style={styles.clientAptsContainer}>
+                                {client.appointments.length ? (
+                                    client.appointments.length > 1 ? (
+                                        <Text style={styles.upcomingAptText}>
+                                            {client.appointments.length}{" "}
+                                            Upcoming Appointments
+                                        </Text>
+                                    ) : (
+                                        <Text style={styles.upcomingAptText}>
+                                            {" "}
+                                            1 Upcoming Appointment
+                                        </Text>
+                                    )
+                                ) : (
+                                    <Text style={styles.upcomingAptText}>
+                                        No Upcoming Appointments
+                                    </Text>
+                                )}
+
+                                <TouchableOpacity>
+                                    <Text style={styles.upcomingAptManage}>
+                                        Manage
+                                    </Text>
+                                </TouchableOpacity>
+                            </View>
                         </View>
                     );
                 })}
@@ -88,12 +124,22 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
         padding: 5,
+        justifyContent: "space-evenly",
     },
     profileImg: {
         width: 75,
         height: 75,
         borderRadius: 100,
     },
-    clientTextContainer: { paddingLeft: "10%" },
+    clientTextContainer: { paddingLeft: "5%" },
+    clientAptsContainer: {},
     clientText: { padding: 1 },
+    upcomingAptManage: {
+        textAlign: "center",
+        color: "deepskyblue",
+        fontWeight: "600",
+    },
+    upcomingAptText: {
+        maxWidth: 165,
+    },
 });
