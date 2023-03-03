@@ -44,12 +44,7 @@ export default function UserProfile() {
                 source={{
                     uri: "https://i.pinimg.com/originals/cc/2e/01/cc2e011cc5236801ee8fd6d2fc5dc2c5.jpg",
                 }}
-                style={{
-                    alignSelf: "center",
-                    width: 100,
-                    height: 100,
-                    borderRadius: 100,
-                }}
+                style={styles.profileImg}
             />
 
             <Button
@@ -82,14 +77,7 @@ export default function UserProfile() {
                             source={{
                                 uri: "https://i.pinimg.com/originals/cc/2e/01/cc2e011cc5236801ee8fd6d2fc5dc2c5.jpg",
                             }}
-                            style={{
-                                alignSelf: "center",
-                                width: 100,
-                                height: 100,
-                                borderWidth: 1,
-                                borderColor: "black",
-                                borderRadius: 100,
-                            }}
+                            style={styles.profileImgModal}
                         />
                         <Controller
                             control={control}
@@ -217,6 +205,20 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         paddingBottom: 25,
         textAlign: "center",
+    },
+    profileImg: {
+        alignSelf: "center",
+        width: 100,
+        height: 100,
+        borderRadius: 100,
+    },
+    profileImgModal: {
+        alignSelf: "center",
+        width: 100,
+        height: 100,
+        borderWidth: 1,
+        borderColor: "black",
+        borderRadius: 100,
     },
     fields: { alignItems: "center", flexDirection: "row", padding: "1%" },
     buttons: { flexDirection: "row", justifyContent: "center" },

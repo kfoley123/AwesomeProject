@@ -21,17 +21,13 @@ export default function SignInScreen() {
     } = useForm({});
 
     const onSubmit = (data) => {
-        //store values user puts in as data
-        // get data from state
         const userData = userState.getUserData();
-        // check if values from form matches values from state
         if (
             userData.email === data.email &&
             userData.password === data.password
         ) {
             loggedInState.toggleLoggedInState();
         }
-        //if they match change loggedin state to true
     };
 
     return (
