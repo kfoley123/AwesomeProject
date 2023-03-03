@@ -25,9 +25,10 @@ export default function UserProfile() {
         control,
         handleSubmit,
         formState: { errors },
+        reset,
     } = useForm({
         defaultValues: {
-            name: userData.username,
+            username: userData.username,
             email: userData.email,
             phoneNumber: userData.phoneNumber,
         },
@@ -54,7 +55,6 @@ export default function UserProfile() {
             />
 
             <Button
-                style={[styles.button]}
                 title="edit profile"
                 onPress={() => setModalVisible(!modalVisible)}
             />
@@ -105,13 +105,13 @@ export default function UserProfile() {
                                     style={styles.input}
                                     onBlur={onBlur}
                                     onChangeText={onChange}
+                                    autoCapitalize={"words"}
                                     value={value}
-                                    reValidateMode={onChange}
                                 />
                             )}
-                            name="name"
+                            name="username"
                         />
-                        {errors.name && <Text>Name is required.</Text>}
+                        {errors.username && <Text>Name is required.</Text>}
 
                         <Controller
                             control={control}
@@ -127,8 +127,8 @@ export default function UserProfile() {
                                     style={styles.input}
                                     onBlur={onBlur}
                                     onChangeText={onChange}
+                                    keyboardType={"email-address"}
                                     value={value}
-                                    reValidateMode={onChange}
                                 />
                             )}
                             name="email"
@@ -150,9 +150,9 @@ export default function UserProfile() {
                                 <TextInput
                                     style={styles.input}
                                     onBlur={onBlur}
+                                    keyboardType={"numeric"}
                                     onChangeText={onChange}
                                     value={value}
-                                    reValidateMode={onChange}
                                 />
                             )}
                             name="phoneNumber"
@@ -163,22 +163,24 @@ export default function UserProfile() {
 
                         <View style={styles.buttons}>
                             <Pressable
-                                style={[styles.button, styles.buttonClose]}
+                                style={styles.button}
                                 onPress={() => {
                                     setModalVisible(!modalVisible);
+                                    reset(userData);
                                 }}
                             >
-                                <Text style={styles.textStyle}>Cancel</Text>
+                                <Text>Cancel</Text>
                             </Pressable>
 
                             <Pressable
-                                style={[styles.button, styles.buttonClose]}
+                                style={styles.button}
+                                disabled={Object.keys(errors).length > 0}
                                 onPress={() => {
                                     setModalVisible(!modalVisible);
                                     handleSubmit(onSubmit)();
                                 }}
                             >
-                                <Text style={styles.textStyle}>Done</Text>
+                                <Text>Done</Text>
                             </Pressable>
                         </View>
                     </View>
@@ -212,7 +214,7 @@ const styles = StyleSheet.create({
         elevation: 2,
     },
     title: {
-        fontSize: "20%",
+        fontSize: 18,
         fontWeight: "bold",
         paddingBottom: 25,
         textAlign: "center",

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import {
     StyleSheet,
     Text,
@@ -6,17 +6,31 @@ import {
     View,
     TouchableOpacity,
 } from "react-native";
-import UserSettings from "../UserSettings/UserSettings";
-
+import { useSettingsState } from "../../store";
+// TODO
+// eslint-disable-next-line react/prop-types
 export default function UserHomeScreen({ navigation }) {
-    const [upcomingAppointments, setUpcomingAppointments] = useState([
+    const [upcomingAppointments] = useState([
         { date: "July 9th", startTime: 10, endTime: 5, images: "", notes: "" },
         { date: "Aug 9th", startTime: 10, endTime: 5, images: "", notes: "" },
         { date: "Sept 10th", startTime: 10, endTime: 5, images: "", notes: "" },
         { date: "Oct 4th", startTime: 10, endTime: 5, images: "", notes: "" },
     ]);
 
-    const [waitlistRequests, setWaitlistRequests] = useState([]);
+    const [waitlistRequests] = useState([]);
+
+    const state = useSettingsState();
+
+    function getNotificationType() {
+        if (state.getSMSBoxValue() && state.getEmailBoxValue()) {
+            return "SMS Message and Email";
+        } else if (state.getSMSBoxValue()) {
+            return "SMS Message";
+        } else if (state.getEmailBoxValue()) {
+            return "Email";
+        } else return "Please choose a notification preference";
+    }
+
     return (
         <View style={styles.container}>
             <View style={styles.upcomingAppointments}>
@@ -47,9 +61,10 @@ export default function UserHomeScreen({ navigation }) {
                 }}
             >
                 <Text style={styles.header}> Waitlist Requests</Text>
-                <Text> You will be notified by email.</Text>
+                <Text> You will be notified by {getNotificationType()}.</Text>
 
                 <TouchableOpacity
+                    // eslint-disable-next-line react/prop-types
                     onPress={() => navigation.navigate("Settings")}
                 >
                     <Text
