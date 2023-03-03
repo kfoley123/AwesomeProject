@@ -9,13 +9,16 @@ import {
     Button,
     View,
     Image,
+    TouchableOpacity,
 } from "react-native";
 import { useForm, Controller } from "react-hook-form";
-import { useUserDataState } from "../../store";
+import { useUserDataState, useLoggedInState } from "../../store";
 
 export default function UserProfile() {
     const state = useUserDataState();
     const user = state.getUserData();
+
+    const loggedInState = useLoggedInState();
 
     const [modalVisible, setModalVisible] = useState(false);
 
@@ -60,6 +63,13 @@ export default function UserProfile() {
             <View style={styles.fields}>
                 <Text>{user.phoneNumber}</Text>
             </View>
+
+            <TouchableOpacity
+                onPress={() => loggedInState.toggleLoggedInState()}
+                style={styles.logoutButton}
+            >
+                <Text style={styles.buttonText}>Log Out</Text>
+            </TouchableOpacity>
 
             <Modal
                 animationType="slide"
@@ -200,6 +210,13 @@ const styles = StyleSheet.create({
         margin: 5,
         elevation: 2,
     },
+    logoutButton: {
+        backgroundColor: "deepskyblue",
+        padding: 10,
+        borderRadius: 5,
+        marginVertical: 15,
+    },
+    buttonText: { color: "white", fontWeight: "500" },
     title: {
         fontSize: 18,
         fontWeight: "bold",

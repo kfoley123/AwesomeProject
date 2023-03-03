@@ -5,6 +5,7 @@ import {
     SafeAreaView,
     Text,
     StyleSheet,
+    StatusBar,
 } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 import { useForm, Controller } from "react-hook-form";
@@ -32,6 +33,7 @@ export default function SignInScreen() {
 
     return (
         <SafeAreaView style={styles.container}>
+            <StatusBar barStyle="dark-content" />
             <Image source={require("./logo.png")} style={styles.logo} />
 
             <Controller
@@ -85,12 +87,12 @@ export default function SignInScreen() {
 const styles = StyleSheet.create({
     container: {
         alignItems: "center",
+
         justifyContent: "center",
     },
     logo: { width: 300, height: 300, marginVertical: 35 },
     input: {
         backgroundColor: "white",
-        borderColor: "black",
         height: 40,
         padding: 10,
         borderRadius: 4,

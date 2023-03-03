@@ -48,9 +48,9 @@ export default function UserHomeScreen({ navigation }) {
                     <Text>You have no upcoming appointments</Text>
                 )}
 
-                <Pressable style={styles.homeButtons}>
+                <TouchableOpacity style={styles.homeButtons}>
                     <Text style={styles.buttonText}>Book Appointment</Text>
-                </Pressable>
+                </TouchableOpacity>
             </View>
 
             <View
@@ -83,11 +83,11 @@ export default function UserHomeScreen({ navigation }) {
                         <Text style={styles.noWaitlist}>
                             No Waitlist Requests
                         </Text>
-                        <Pressable style={styles.homeButtons}>
+                        <TouchableOpacity style={styles.homeButtons}>
                             <Text style={styles.buttonText}>
                                 Add Waitlist Request
                             </Text>
-                        </Pressable>
+                        </TouchableOpacity>
                     </>
                 )}
             </View>
