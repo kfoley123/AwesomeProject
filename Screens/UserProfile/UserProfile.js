@@ -11,7 +11,6 @@ import {
     Image,
 } from "react-native";
 import { useForm, Controller } from "react-hook-form";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function UserProfile() {
     const [userData, setUserData] = useState({
