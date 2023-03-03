@@ -5,6 +5,7 @@ export default function AdminHome() {
     return (
         <View style={styles.container}>
             <Text> Admin Home </Text>
+            {/* week view of appointments */}
         </View>
     );
 }
