@@ -2,7 +2,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import UserHomeScreen from "../UserHomeScreen/UserHomeScreen";
 import UserCalendar from "../UserCalendar/UserCalendar";
-import Notifications from "../../Notifications/Notifications";
+import Notifications from "../Notifications/Notifications";
 import React, { useEffect } from "react";
 
 const Tab = createBottomTabNavigator();
