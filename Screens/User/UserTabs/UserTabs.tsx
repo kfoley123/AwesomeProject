@@ -1,12 +1,11 @@
 import { Ionicons } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { BottomTabNavigatorParamList } from "./Types";
 import UserHomeScreen from "../UserHomeScreen/UserHomeScreen";
 import UserCalendar from "../UserCalendar/UserCalendar";
-import Notifications from "../Notifications/Notifications";
+import Notifications from "../../Notifications/Notifications";
 import React, { useEffect } from "react";
 
-const Tab = createBottomTabNavigator<BottomTabNavigatorParamList>();
+const Tab = createBottomTabNavigator();
 // TODO fix is missing in props validation
 // eslint-disable-next-line react/prop-types
 export default function UserTabs({ navigation }) {

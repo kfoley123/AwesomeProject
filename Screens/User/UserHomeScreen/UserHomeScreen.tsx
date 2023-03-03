@@ -1,12 +1,6 @@
 import React, { useState } from "react";
-import {
-    StyleSheet,
-    Text,
-    Pressable,
-    View,
-    TouchableOpacity,
-} from "react-native";
-import { useSettingsState } from "../../store";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { useSettingsState } from "../../../store";
 // TODO
 // eslint-disable-next-line react/prop-types
 export default function UserHomeScreen({ navigation }) {

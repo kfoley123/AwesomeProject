@@ -6,9 +6,9 @@ import {
     getFocusedRouteNameFromRoute,
 } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import UserTabs from "./Screens/UserTabs/UserTabs";
-import UserProfile from "./Screens/UserProfile/UserProfile";
-import UserSettings from "./Screens/UserSettings/UserSettings";
+import UserTabs from "./Screens/User/UserTabs/UserTabs";
+import UserProfile from "./Screens/User/UserProfile/UserProfile";
+import UserSettings from "./Screens/User/UserSettings/UserSettings";
 import SignInScreen from "./Screens/SignInScreen/SignInScreen";
 import { useLoggedInState } from "./store";
 
