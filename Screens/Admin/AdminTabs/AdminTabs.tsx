@@ -4,6 +4,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import AdminNotifications from "../AdminNotifications/AdminNotifications";
 import AdminHome from "../AdminHome/AdminHome";
 import AdminCalendar from "../AdminCalendar/AdminCalendar";
+import AdminClientList from "../AdminClientList/AdminClientList";
 
 const Tab = createBottomTabNavigator();
 // TODO fix is missing in props validation
@@ -26,6 +27,18 @@ export default function AdminTabs({ navigation }) {
                                     focused
                                         ? "ios-information-circle"
                                         : "ios-information-circle-outline"
+                                }
+                                size={size}
+                                color={color}
+                            />
+                        );
+                    } else if (route.name === "Clients") {
+                        return (
+                            <Ionicons
+                                name={
+                                    focused
+                                        ? "md-people-sharp"
+                                        : "md-people-outline"
                                 }
                                 size={size}
                                 color={color}
@@ -54,6 +67,7 @@ export default function AdminTabs({ navigation }) {
             })}
         >
             <Tab.Screen name="Home" component={AdminHome} />
+            <Tab.Screen name="Clients" component={AdminClientList} />
 
             <Tab.Screen name="Calendar" component={AdminCalendar} />
             <Tab.Screen
