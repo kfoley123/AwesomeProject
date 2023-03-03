@@ -34,7 +34,7 @@ export interface UserDataModel {
 
 const userDataState = hookstate<UserDataModel>({
     username: "User1",
-    email: "fuck@example.com",
+    email: "me@me.com",
     phoneNumber: "5555555555",
     admin: false,
     password: "1234",
