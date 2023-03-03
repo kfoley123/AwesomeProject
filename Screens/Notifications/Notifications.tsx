@@ -1,8 +1,8 @@
+import React from "react";
 import { StatusBar } from "expo-status-bar";
 import {
     StyleSheet,
     Alert,
-    Text,
     Button,
     TouchableOpacity,
     View,
