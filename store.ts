@@ -44,6 +44,7 @@ export const useUserDataState = () => {
     const state = useHookstate(userDataState);
     return {
         getUserData: () => state.value,
+        getAdminData: () => state.admin.value,
         setUserData: (formData) => state.set(formData),
     };
 };
