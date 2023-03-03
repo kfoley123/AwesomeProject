@@ -28,7 +28,7 @@ export interface UserDataModel {
     username: string;
     email: string;
     phoneNumber: string;
-    admin: false;
+    admin: boolean;
     password: string;
 }
 
@@ -36,7 +36,7 @@ const userDataState = hookstate<UserDataModel>({
     username: "User1",
     email: "me@me.com",
     phoneNumber: "5555555555",
-    admin: false,
+    admin: true,
     password: "1234",
 });
 

@@ -1,16 +1,9 @@
 import React from "react";
-import { Pressable, Image, Text } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
-import {
-    NavigationContainer,
-    getFocusedRouteNameFromRoute,
-} from "@react-navigation/native";
+import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import UserTabs from "./Screens/User/UserTabs/UserTabs";
-import UserProfile from "./Screens/User/UserProfile/UserProfile";
-import UserSettings from "./Screens/User/UserSettings/UserSettings";
 import SignInScreen from "./Screens/SignInScreen/SignInScreen";
 import UserView from "./Screens/User/UserView/UserView";
+import AdminView from "./Screens/Admin/AdminView/AdminView";
 import { useLoggedInState, useUserDataState } from "./store";
 
 const Stack = createStackNavigator();
@@ -32,7 +25,11 @@ export default function App() {
                     </>
                 ) : userState.getAdminData() ? (
                     <>
-                        <Text> Admin view </Text>
+                        <Stack.Screen
+                            name="AdminView"
+                            component={AdminView}
+                            options={{ headerShown: false }}
+                        />
                     </>
                 ) : (
                     <Stack.Screen
