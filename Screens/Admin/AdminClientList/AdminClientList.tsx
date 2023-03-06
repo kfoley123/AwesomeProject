@@ -262,7 +262,7 @@ export default function AdminClientList() {
                                         {client.phoneNumber}
                                     </Text>
                                     <TouchableOpacity>
-                                        <Text style={styles.textLink}>
+                                        <Text style={styles.textLinkViewMore}>
                                             View More
                                         </Text>
                                     </TouchableOpacity>
@@ -329,10 +329,10 @@ const styles = StyleSheet.create({
         borderRadius: 100,
     },
     clientInfo: {
-        paddingLeft: 20,
+        paddingLeft: 0,
         justifyContent: "space-between",
         flexDirection: "row",
-        width: "70%",
+        width: "75%",
     },
     clientTextContainer: { paddingLeft: "5%" },
     clientAptsContainer: { padding: 1 },
@@ -343,8 +343,13 @@ const styles = StyleSheet.create({
         fontWeight: "600",
         padding: 1,
     },
+    textLinkViewMore: {
+        color: "deepskyblue",
+        fontWeight: "600",
+        padding: 1,
+    },
     upcomingAptText: {
-        maxWidth: 165,
+        maxWidth: 170,
     },
     modalContainer: {
         margin: 20,
