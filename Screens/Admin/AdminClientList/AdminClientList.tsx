@@ -14,32 +14,44 @@ import { useForm, Controller } from "react-hook-form";
 import { Ionicons } from "@expo/vector-icons";
 
 export default function AdminClientList() {
+    const [selectedClient, setSelectedClient] = useState({
+        id: 0,
+        username: "",
+        email: "",
+        phoneNumber: "",
+        appointments: [],
+    });
     const [clientList, setClientList] = useState([
         {
+            id: 1,
             username: "Joel Client",
             email: "kortney_foley@hotmail.com",
             phoneNumber: "5555555556",
             appointments: [{ date: "dog" }, { date: "cat" }],
         },
         {
+            id: 2,
             username: "Cammy White",
             email: "fight@me.com",
             phoneNumber: "5555555557",
             appointments: [{}],
         },
         {
+            id: 3,
             username: "Bob Ross",
             email: "bob1@me.com",
             phoneNumber: "5555555558",
             appointments: [],
         },
         {
+            id: 4,
             username: "Joel Client",
             email: "bob@me.com",
             phoneNumber: "5555555556",
             appointments: [],
         },
         {
+            id: 5,
             username: "Cammy White",
             email: "fight@me.com",
             phoneNumber: "5555555557",
@@ -51,18 +63,21 @@ export default function AdminClientList() {
             ],
         },
         {
+            id: 6,
             username: "Bob Ross",
             email: "bob1@me.com",
             phoneNumber: "5555555558",
             appointments: [],
         },
         {
+            id: 7,
             username: "Joel Client",
             email: "bob@me.com",
             phoneNumber: "5555555556",
             appointments: [],
         },
         {
+            id: 8,
             username: "Cammy White",
             email: "fight@me.com",
             phoneNumber: "5555555557",
@@ -74,18 +89,21 @@ export default function AdminClientList() {
             ],
         },
         {
+            id: 9,
             username: "Bob Ross",
             email: "bob1@me.com",
             phoneNumber: "5555555558",
             appointments: [],
         },
         {
+            id: 10,
             username: "Joel Client",
             email: "bob@me.com",
             phoneNumber: "5555555556",
             appointments: [],
         },
         {
+            id: 11,
             username: "Cammy White",
             email: "fight@me.com",
             phoneNumber: "5555555557",
@@ -97,6 +115,7 @@ export default function AdminClientList() {
             ],
         },
         {
+            id: 12,
             username: "Bob Ross",
             email: "bob1@me.com",
             phoneNumber: "5555555558",
@@ -104,6 +123,7 @@ export default function AdminClientList() {
         },
     ]);
     const [modalVisible, setModalVisible] = useState(false);
+    const [clientInfoModalVisible, setClientInfoModalVisible] = useState(false);
 
     const {
         control,
@@ -128,7 +148,7 @@ export default function AdminClientList() {
 
                 <Modal
                     animationType="slide"
-                    transparent={true}
+                    transparent={false}
                     visible={modalVisible}
                     onRequestClose={() => {
                         setModalVisible(!modalVisible);
@@ -261,7 +281,14 @@ export default function AdminClientList() {
                                     <Text style={styles.clientText}>
                                         {client.phoneNumber}
                                     </Text>
-                                    <TouchableOpacity>
+                                    <TouchableOpacity
+                                        onPress={() => {
+                                            setSelectedClient(client);
+                                            setClientInfoModalVisible(
+                                                !clientInfoModalVisible
+                                            );
+                                        }}
+                                    >
                                         <Text style={styles.textLinkViewMore}>
                                             View More
                                         </Text>
@@ -301,6 +328,47 @@ export default function AdminClientList() {
                     );
                 })}
             </ScrollView>
+
+            <Modal
+                animationType="slide"
+                transparent={false}
+                visible={clientInfoModalVisible}
+                onRequestClose={() => {
+                    setClientInfoModalVisible(!clientInfoModalVisible);
+                }}
+            >
+                <View style={styles.centeredView}>
+                    <View style={styles.modalContainer}>
+                        <Image
+                            source={{
+                                uri: "https://i.pinimg.com/originals/cc/2e/01/cc2e011cc5236801ee8fd6d2fc5dc2c5.jpg",
+                            }}
+                            style={styles.profileImgModal}
+                        />
+
+                        <View style={styles.fields}>
+                            <Text>{selectedClient.username}</Text>
+                        </View>
+                        <View style={styles.fields}>
+                            <Text>{selectedClient.phoneNumber}</Text>
+                        </View>
+                        <View style={styles.fields}>
+                            <Text>{selectedClient.email}</Text>
+                        </View>
+                        <Pressable
+                            style={styles.button}
+                            onPress={() => {
+                                setClientInfoModalVisible(
+                                    !clientInfoModalVisible
+                                );
+                                reset();
+                            }}
+                        >
+                            <Text style={styles.buttonText}>Cancel</Text>
+                        </Pressable>
+                    </View>
+                </View>
+            </Modal>
         </View>
     );
 }
@@ -308,7 +376,6 @@ export default function AdminClientList() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-
         alignItems: "center",
         justifyContent: "center",
     },
@@ -349,13 +416,14 @@ const styles = StyleSheet.create({
         padding: 1,
     },
     upcomingAptText: {
-        maxWidth: 170,
+        maxWidth: 165,
     },
     modalContainer: {
         margin: 20,
         backgroundColor: "whitesmoke",
         paddingHorizontal: 50,
         paddingTop: 60,
+        alignItems: "center",
         height: "100%",
         width: "100%",
     },
@@ -392,5 +460,13 @@ const styles = StyleSheet.create({
         padding: 10,
         borderRadius: 4,
         margin: 10,
+        width: 275,
+    },
+    fields: { alignItems: "center", flexDirection: "row", padding: "1%" },
+    profileImgModal: {
+        width: 75,
+        height: 75,
+        borderRadius: 100,
+        marginVertical: 15,
     },
 });
