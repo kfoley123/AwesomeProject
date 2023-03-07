@@ -151,8 +151,10 @@ export default function AdminClientList() {
         reset,
     } = useForm({});
 
-    const onSubmit = (data) =>
+    const onSubmit = (data) => {
         setClientList([...clientList, { ...data, appointments: [] }]);
+        reset();
+    };
 
     return (
         <View style={styles.container}>
@@ -271,7 +273,6 @@ export default function AdminClientList() {
                                     onPress={() => {
                                         setModalVisible(!modalVisible);
                                         handleSubmit(onSubmit)();
-                                        reset();
                                     }}
                                 >
                                     <Text style={styles.buttonText}>Add</Text>
