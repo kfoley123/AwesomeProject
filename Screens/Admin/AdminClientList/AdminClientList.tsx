@@ -410,7 +410,14 @@ export default function AdminClientList() {
                                 Alert.alert(
                                     "Remove Client",
                                     "Are you sure you want to permanently remove this client?.",
-                                    [{ text: "Yes" }, { text: "No" }]
+                                    [
+                                        {
+                                            text: "Yes",
+                                            onPress: () =>
+                                                console.log("client removed"),
+                                        },
+                                        { text: "No" },
+                                    ]
                                 )
                             }
                         >
