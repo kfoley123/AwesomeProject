@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import {
+    Alert,
     Text,
     ScrollView,
     View,
@@ -389,7 +390,7 @@ export default function AdminClientList() {
                             <Text>{selectedClient.email}</Text>
                         </View>
                         <TouchableOpacity
-                            style={styles.Backbutton}
+                            style={styles.backButton}
                             onPress={() => {
                                 setClientInfoModalVisible(
                                     !clientInfoModalVisible
@@ -404,11 +405,16 @@ export default function AdminClientList() {
                         </TouchableOpacity>
 
                         <TouchableOpacity
-                            onPress={() => {
-                                console.log("client deleted");
-                            }}
+                            style={styles.removeButton}
+                            onPress={() =>
+                                Alert.alert(
+                                    "Remove Client",
+                                    "Are you sure you want to permanently remove this client?.",
+                                    [{ text: "Yes" }, { text: "No" }]
+                                )
+                            }
                         >
-                            <Text>Remove</Text>
+                            <Text style={styles.buttonText}>Remove</Text>
                         </TouchableOpacity>
 
                         <Seperator />
@@ -542,7 +548,7 @@ const styles = StyleSheet.create({
         elevation: 2,
         width: 75,
     },
-    Backbutton: {
+    backButton: {
         backgroundColor: "deepskyblue",
         textAlign: "center",
         borderRadius: 7,
@@ -554,6 +560,16 @@ const styles = StyleSheet.create({
         top: 50,
         left: 15,
     },
+    removeButton: {
+        backgroundColor: "grey",
+        textAlign: "center",
+        borderRadius: 7,
+        padding: 10,
+        margin: 5,
+        elevation: 2,
+        width: 75,
+    },
+
     backButtonText: { color: "white", fontWeight: "600" },
     buttonText: {
         color: "white",
