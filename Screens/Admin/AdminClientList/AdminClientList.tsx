@@ -389,7 +389,7 @@ export default function AdminClientList() {
                             <Text>{selectedClient.email}</Text>
                         </View>
                         <TouchableOpacity
-                            style={styles.button}
+                            style={styles.Backbutton}
                             onPress={() => {
                                 setClientInfoModalVisible(
                                     !clientInfoModalVisible
@@ -397,7 +397,18 @@ export default function AdminClientList() {
                                 reset();
                             }}
                         >
-                            <Text style={styles.buttonText}>Back</Text>
+                            <Text style={styles.backButtonText}>
+                                <MaterialIcons name="chevron-left" />
+                                Back
+                            </Text>
+                        </TouchableOpacity>
+
+                        <TouchableOpacity
+                            onPress={() => {
+                                console.log("client deleted");
+                            }}
+                        >
+                            <Text>Remove</Text>
                         </TouchableOpacity>
 
                         <Seperator />
@@ -531,7 +542,24 @@ const styles = StyleSheet.create({
         elevation: 2,
         width: 75,
     },
-    buttonText: { color: "white", fontWeight: "600", textAlign: "center" },
+    Backbutton: {
+        backgroundColor: "deepskyblue",
+        textAlign: "center",
+        borderRadius: 7,
+        padding: 10,
+        margin: 5,
+        elevation: 2,
+        width: 75,
+        position: "absolute",
+        top: 50,
+        left: 15,
+    },
+    backButtonText: { color: "white", fontWeight: "600" },
+    buttonText: {
+        color: "white",
+        fontWeight: "600",
+        textAlign: "center",
+    },
     buttonContainer: { flexDirection: "row", justifyContent: "center" },
     input: {
         backgroundColor: "white",
