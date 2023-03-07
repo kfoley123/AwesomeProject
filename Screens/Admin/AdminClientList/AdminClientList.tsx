@@ -400,8 +400,8 @@ export default function AdminClientList() {
                             <Text style={styles.buttonText}>Back</Text>
                         </TouchableOpacity>
 
-                        <Text> _____________________________________</Text>
-                        <ScrollView>
+                        <Seperator />
+                        <ScrollView style={{ width: "100%" }}>
                             <View style={styles.aptsHeaders}>
                                 <Text style={styles.subtitle}>
                                     Upcoming Appointments
@@ -440,10 +440,7 @@ export default function AdminClientList() {
 
                             <View style={styles.aptsHeaders}>
                                 <Seperator />
-                                <Text>
-                                    {" "}
-                                    _____________________________________
-                                </Text>
+
                                 <Text style={styles.subtitle}>
                                     Past Appointments
                                 </Text>
@@ -564,7 +561,7 @@ const styles = StyleSheet.create({
         marginBottom: 5,
     },
     subtitle: { fontSize: 15, fontWeight: "500", paddingVertical: 20 },
-    aptsHeaders: { alignItems: "center" },
+    aptsHeaders: { alignItems: "center", width: "100%" },
     appointmentInfo: { padding: 5 },
 });
 
@@ -572,6 +569,7 @@ const seperatorStyles: ViewStyle = {
     height: 1,
     width: "100%",
     backgroundColor: "#a9a9a9",
+    marginVertical: 10,
 };
 
 const Seperator = () => <View style={seperatorStyles} />;
