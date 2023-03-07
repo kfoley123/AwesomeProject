@@ -9,6 +9,7 @@ import {
     Pressable,
     TextInput,
     TouchableOpacity,
+    ViewStyle,
 } from "react-native";
 import { useForm, Controller } from "react-hook-form";
 import { Ionicons } from "@expo/vector-icons";
@@ -398,49 +399,56 @@ export default function AdminClientList() {
                         >
                             <Text style={styles.buttonText}>Back</Text>
                         </TouchableOpacity>
-                        <View style={styles.aptsHeaders}>
-                            <Text> _____________________________________</Text>
-                            <Text style={styles.subtitle}>
-                                Upcoming Appointments
-                            </Text>
-                            {selectedClient.appointments.map(
-                                (appointment, i) => {
-                                    return (
-                                        <View
-                                            style={styles.appointmentInfo}
-                                            key={i}
-                                        >
-                                            <Text>
-                                                {appointment.date} -{" "}
-                                                {appointment.time}
-                                            </Text>
-                                            <TouchableOpacity key={i}>
-                                                <Text style={styles.textLink}>
-                                                    Manage
+
+                        <Text> _____________________________________</Text>
+                        <ScrollView>
+                            <View style={styles.aptsHeaders}>
+                                <Text style={styles.subtitle}>
+                                    Upcoming Appointments
+                                </Text>
+                                {selectedClient.appointments.map(
+                                    (appointment, i) => {
+                                        return (
+                                            <View
+                                                style={styles.appointmentInfo}
+                                                key={i}
+                                            >
+                                                <Text>
+                                                    {appointment.date} -{" "}
+                                                    {appointment.time}
                                                 </Text>
-                                            </TouchableOpacity>
-                                        </View>
-                                    );
-                                }
-                            )}
-                            <TouchableOpacity
-                                style={styles.button}
-                                onPress={() => {
-                                    console.log("Calendar Open ");
-                                }}
-                            >
-                                <Text style={styles.buttonText}>Book</Text>
-                            </TouchableOpacity>
-                        </View>
+                                                <TouchableOpacity key={i}>
+                                                    <Text
+                                                        style={styles.textLink}
+                                                    >
+                                                        Manage
+                                                    </Text>
+                                                </TouchableOpacity>
+                                            </View>
+                                        );
+                                    }
+                                )}
+                                <TouchableOpacity
+                                    style={styles.button}
+                                    onPress={() => {
+                                        console.log("Calendar Open ");
+                                    }}
+                                >
+                                    <Text style={styles.buttonText}>Book</Text>
+                                </TouchableOpacity>
+                            </View>
 
-                        {/* <Hr /> */}
-
-                        <View style={styles.aptsHeaders}>
-                            <Text> _____________________________________</Text>
-                            <Text style={styles.subtitle}>
-                                Past Appointments
-                            </Text>
-                        </View>
+                            <View style={styles.aptsHeaders}>
+                                <Seperator />
+                                <Text>
+                                    {" "}
+                                    _____________________________________
+                                </Text>
+                                <Text style={styles.subtitle}>
+                                    Past Appointments
+                                </Text>
+                            </View>
+                        </ScrollView>
                     </View>
                 </View>
             </Modal>
@@ -555,7 +563,15 @@ const styles = StyleSheet.create({
         marginTop: 15,
         marginBottom: 5,
     },
-    subtitle: { paddingVertical: 20 },
+    subtitle: { fontSize: 15, fontWeight: "500", paddingVertical: 20 },
     aptsHeaders: { alignItems: "center" },
     appointmentInfo: { padding: 5 },
 });
+
+const seperatorStyles: ViewStyle = {
+    height: 1,
+    width: "100%",
+    backgroundColor: "#a9a9a9",
+};
+
+const Seperator = () => <View style={seperatorStyles} />;
