@@ -15,9 +15,7 @@ import { useLoggedInState } from "./store";
 const Stack = createStackNavigator();
 
 function getHeaderTitle(route) {
-    const routeName = getFocusedRouteNameFromRoute(route);
-
-    return routeName;
+    return getFocusedRouteNameFromRoute(route);
 }
 
 export default function App() {
