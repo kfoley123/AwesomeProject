@@ -64,7 +64,7 @@ export default function UserProfile() {
             </View>
 
             <TouchableOpacity
-                onPress={() => loggedInState.toggleLoggedInState()}
+                onPress={loggedInState.toggleLoggedInState}
                 style={styles.logoutButton}
             >
                 <Text style={styles.buttonText}>Log Out</Text>
