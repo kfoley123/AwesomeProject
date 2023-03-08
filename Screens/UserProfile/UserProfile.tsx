@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import {
     StyleSheet,
     Modal,
@@ -9,17 +9,22 @@ import {
     Button,
     View,
     Image,
+    TouchableOpacity,
 } from "react-native";
 import { useForm, Controller } from "react-hook-form";
+import { useUserDataState, useLoggedInState } from "../../store";
 
 export default function UserProfile() {
-    const [userData, setUserData] = useState({
-        username: "Your Name",
-        email: "example@example.com",
-        phoneNumber: "5555555555",
-    });
+    const state = useUserDataState();
+    const user = state.getUserData();
+
+    const loggedInState = useLoggedInState();
 
     const [modalVisible, setModalVisible] = useState(false);
+
+    function updateUserData(formData) {
+        state.setUserData(formData);
+    }
 
     const {
         control,
@@ -28,17 +33,13 @@ export default function UserProfile() {
         reset,
     } = useForm({
         defaultValues: {
-            username: userData.username,
-            email: userData.email,
-            phoneNumber: userData.phoneNumber,
+            username: user.username,
+            email: user.email,
+            phoneNumber: user.phoneNumber,
         },
     });
 
-    const onSubmit = (data) =>
-        setUserData((prevData) => ({
-            ...prevData,
-            ...data,
-        }));
+    const onSubmit = (data) => updateUserData(data);
 
     return (
         <View style={{ alignItems: "center", paddingTop: "10%" }}>
@@ -46,12 +47,7 @@ export default function UserProfile() {
                 source={{
                     uri: "https://i.pinimg.com/originals/cc/2e/01/cc2e011cc5236801ee8fd6d2fc5dc2c5.jpg",
                 }}
-                style={{
-                    alignSelf: "center",
-                    width: 100,
-                    height: 100,
-                    borderRadius: 100,
-                }}
+                style={styles.profileImg}
             />
 
             <Button
@@ -59,14 +55,21 @@ export default function UserProfile() {
                 onPress={() => setModalVisible(!modalVisible)}
             />
             <View style={styles.fields}>
-                <Text>{userData.username} </Text>
+                <Text>{user.username} </Text>
             </View>
             <View style={styles.fields}>
-                <Text>{userData.email}</Text>
+                <Text>{user.email}</Text>
             </View>
             <View style={styles.fields}>
-                <Text>{userData.phoneNumber}</Text>
+                <Text>{user.phoneNumber}</Text>
             </View>
+
+            <TouchableOpacity
+                onPress={loggedInState.toggleLoggedInState}
+                style={styles.logoutButton}
+            >
+                <Text style={styles.buttonText}>Log Out</Text>
+            </TouchableOpacity>
 
             <Modal
                 animationType="slide"
@@ -84,14 +87,7 @@ export default function UserProfile() {
                             source={{
                                 uri: "https://i.pinimg.com/originals/cc/2e/01/cc2e011cc5236801ee8fd6d2fc5dc2c5.jpg",
                             }}
-                            style={{
-                                alignSelf: "center",
-                                width: 100,
-                                height: 100,
-                                borderWidth: 1,
-                                borderColor: "black",
-                                borderRadius: 100,
-                            }}
+                            style={styles.profileImgModal}
                         />
                         <Controller
                             control={control}
@@ -118,6 +114,7 @@ export default function UserProfile() {
                             rules={{
                                 maxLength: 100,
                                 required: true,
+                                // eslint-disable-next-line no-useless-escape
                                 pattern: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
                             }}
                             render={({
@@ -166,7 +163,7 @@ export default function UserProfile() {
                                 style={styles.button}
                                 onPress={() => {
                                     setModalVisible(!modalVisible);
-                                    reset(userData);
+                                    reset(user);
                                 }}
                             >
                                 <Text>Cancel</Text>
@@ -213,11 +210,32 @@ const styles = StyleSheet.create({
         margin: 5,
         elevation: 2,
     },
+    logoutButton: {
+        backgroundColor: "deepskyblue",
+        padding: 10,
+        borderRadius: 5,
+        marginVertical: 15,
+    },
+    buttonText: { color: "white", fontWeight: "500" },
     title: {
         fontSize: 18,
         fontWeight: "bold",
         paddingBottom: 25,
         textAlign: "center",
+    },
+    profileImg: {
+        alignSelf: "center",
+        width: 100,
+        height: 100,
+        borderRadius: 100,
+    },
+    profileImgModal: {
+        alignSelf: "center",
+        width: 100,
+        height: 100,
+        borderWidth: 1,
+        borderColor: "black",
+        borderRadius: 100,
     },
     fields: { alignItems: "center", flexDirection: "row", padding: "1%" },
     buttons: { flexDirection: "row", justifyContent: "center" },

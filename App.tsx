@@ -9,6 +9,8 @@ import { createStackNavigator } from "@react-navigation/stack";
 import UserTabs from "./Screens/UserTabs/UserTabs";
 import UserProfile from "./Screens/UserProfile/UserProfile";
 import UserSettings from "./Screens/UserSettings/UserSettings";
+import SignInScreen from "./Screens/SignInScreen/SignInScreen";
+import { useLoggedInState } from "./store";
 
 const Stack = createStackNavigator();
 
@@ -17,55 +19,79 @@ function getHeaderTitle(route) {
 }
 
 export default function App() {
+    const state = useLoggedInState();
+
     return (
         <NavigationContainer>
             <Stack.Navigator>
-                <Stack.Screen
-                    name="Tabs"
-                    component={UserTabs}
-                    options={({ navigation, route }) => ({
-                        headerTitle: getHeaderTitle(route),
-                        headerRight: () => (
-                            <Pressable
-                                onPress={() => navigation.navigate("Profile")}
-                            >
-                                <Image
-                                    source={{
-                                        uri: "https://i.pinimg.com/originals/cc/2e/01/cc2e011cc5236801ee8fd6d2fc5dc2c5.jpg",
-                                    }}
-                                    style={styles.profileimg}
-                                />
-                            </Pressable>
-                        ),
-                        headerLeft: () => (
-                            <Pressable
-                                onPress={() => navigation.navigate("Settings")}
-                            >
-                                <Ionicons
-                                    name={"md-settings-outline"}
-                                    style={styles.settingsIcon}
-                                />
-                            </Pressable>
-                        ),
-                    })}
-                />
-                <Stack.Screen
-                    name="Profile"
-                    options={() => ({ headerBackTitle: "Back" })}
-                    component={UserProfile}
-                />
-                <Stack.Screen
-                    name="Settings"
-                    options={() => ({ headerBackTitle: "Back" })}
-                    component={UserSettings}
-                />
+                {state.getLoggedInState() ? (
+                    <>
+                        <Stack.Screen
+                            name="Tabs"
+                            component={UserTabs}
+                            options={({ navigation, route }) => ({
+                                headerTitle: getHeaderTitle(route),
+                                headerRight: () => (
+                                    <Pressable
+                                        onPress={() =>
+                                            navigation.navigate("Profile")
+                                        }
+                                    >
+                                        <Image
+                                            source={{
+                                                uri: "https://i.pinimg.com/originals/cc/2e/01/cc2e011cc5236801ee8fd6d2fc5dc2c5.jpg",
+                                            }}
+                                            style={styles.profileImg}
+                                        />
+                                    </Pressable>
+                                ),
+                                headerLeft: () => (
+                                    <Pressable
+                                        onPress={() =>
+                                            navigation.navigate("Settings")
+                                        }
+                                    >
+                                        <Ionicons
+                                            name={"md-settings-outline"}
+                                            style={styles.icon}
+                                        />
+                                    </Pressable>
+                                ),
+                            })}
+                        />
+                        <Stack.Screen
+                            name="Profile"
+                            options={() => ({ headerBackTitle: "Back" })}
+                            component={UserProfile}
+                        />
+                        <Stack.Screen
+                            name="Settings"
+                            options={() => ({ headerBackTitle: "Back" })}
+                            component={UserSettings}
+                        />
+                    </>
+                ) : (
+                    <>
+                        <Stack.Screen
+                            name="Sign In"
+                            component={SignInScreen}
+                            options={{ headerShown: false }}
+                        />
+                    </>
+                )}
             </Stack.Navigator>
         </NavigationContainer>
     );
 }
 
 const styles = StyleSheet.create({
-    profileimg: {
+    icon: {
+        color: "dimgray",
+        fontSize: 25,
+        height: 38,
+        marginLeft: 20,
+    },
+    profileImg: {
         width: 40,
         height: 40,
         borderColor: "black",
@@ -73,11 +99,5 @@ const styles = StyleSheet.create({
         borderRadius: 100,
         marginRight: 21,
         marginBottom: 15,
-    },
-    settingsIcon: {
-        color: "dimgray",
-        fontSize: 25,
-        height: 38,
-        marginLeft: 20,
     },
 });
