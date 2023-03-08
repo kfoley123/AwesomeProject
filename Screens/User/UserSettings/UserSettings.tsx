@@ -1,7 +1,7 @@
 import React from "react";
 import { Text, View, StyleSheet } from "react-native";
 import Checkbox from "expo-checkbox";
-import { useSettingsState } from "../../store";
+import { useSettingsState } from "../../../store";
 
 export default function UserSetting() {
     const state = useSettingsState();

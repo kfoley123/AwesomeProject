@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import {
     StyleSheet,
     Modal,
-    Alert,
     Text,
     TextInput,
     Pressable,
@@ -12,7 +11,7 @@ import {
     TouchableOpacity,
 } from "react-native";
 import { useForm, Controller } from "react-hook-form";
-import { useUserDataState, useLoggedInState } from "../../store";
+import { useUserDataState, useLoggedInState } from "../../../store";
 
 export default function UserProfile() {
     const state = useUserDataState();
@@ -76,7 +75,6 @@ export default function UserProfile() {
                 transparent={true}
                 visible={modalVisible}
                 onRequestClose={() => {
-                    Alert.alert("Modal has been closed.");
                     setModalVisible(!modalVisible);
                 }}
             >
@@ -213,14 +211,14 @@ const styles = StyleSheet.create({
     logoutButton: {
         backgroundColor: "deepskyblue",
         padding: 10,
-        borderRadius: 5,
+        borderRadius: 7,
         marginVertical: 15,
     },
     buttonText: { color: "white", fontWeight: "500" },
     title: {
         fontSize: 18,
         fontWeight: "bold",
-        paddingBottom: 25,
+        paddingBottom: 175,
         textAlign: "center",
     },
     profileImg: {
