@@ -14,9 +14,7 @@ import {
 } from "react-native";
 import { useForm, Controller } from "react-hook-form";
 import { Ionicons } from "@expo/vector-icons";
-import Hr from "react-native-hr";
 import { MaterialIcons } from "@expo/vector-icons";
-
 export default function AdminClientList() {
     const [selectedClient, setSelectedClient] = useState({
         id: 0,
