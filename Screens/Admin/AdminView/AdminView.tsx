@@ -1,5 +1,5 @@
 import React from "react";
-import { Pressable, Image } from "react-native";
+import { Pressable, Image, StyleSheet } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -10,9 +10,7 @@ import AdminSettings from "../AdminSettings/AdminSettings";
 const Stack = createStackNavigator();
 
 function getHeaderTitle(route) {
-    const routeName = getFocusedRouteNameFromRoute(route);
-
-    return routeName;
+    return getFocusedRouteNameFromRoute(route);
 }
 
 export default function UserView() {
@@ -31,15 +29,7 @@ export default function UserView() {
                                 source={{
                                     uri: "https://i.pinimg.com/originals/cc/2e/01/cc2e011cc5236801ee8fd6d2fc5dc2c5.jpg",
                                 }}
-                                style={{
-                                    width: 40,
-                                    height: 40,
-                                    borderColor: "black",
-                                    borderWidth: 0.5,
-                                    borderRadius: 100,
-                                    marginRight: 21,
-                                    marginBottom: 15,
-                                }}
+                                style={styles.profileImg}
                             />
                         </Pressable>
                     ),
@@ -49,12 +39,7 @@ export default function UserView() {
                         >
                             <Ionicons
                                 name={"md-settings-outline"}
-                                style={{
-                                    color: "dimgray",
-                                    fontSize: 25,
-                                    height: 38,
-                                    marginLeft: 20,
-                                }}
+                                style={styles.icon}
                             />
                         </Pressable>
                     ),
@@ -73,3 +58,21 @@ export default function UserView() {
         </Stack.Navigator>
     );
 }
+
+const styles = StyleSheet.create({
+    profileImg: {
+        width: 40,
+        height: 40,
+        borderColor: "black",
+        borderWidth: 0.5,
+        borderRadius: 100,
+        marginRight: 21,
+        marginBottom: 15,
+    },
+    icon: {
+        color: "dimgray",
+        fontSize: 25,
+        height: 38,
+        marginLeft: 20,
+    },
+});
