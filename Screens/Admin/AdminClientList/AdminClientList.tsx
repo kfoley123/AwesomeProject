@@ -407,12 +407,23 @@ export default function AdminClientList() {
                             onPress={() =>
                                 Alert.alert(
                                     "Remove Client",
-                                    "Are you sure you want to permanently remove this client?.",
+                                    "Are you sure you want to permanently remove this client?",
                                     [
                                         {
                                             text: "Yes",
-                                            onPress: () =>
-                                                console.log("client removed"),
+                                            onPress: () => {
+                                                setClientList((prevData) =>
+                                                    prevData.filter(
+                                                        (user) =>
+                                                            user.id !==
+                                                            selectedClient.id
+                                                    )
+                                                ),
+                                                    reset();
+                                                setClientInfoModalVisible(
+                                                    !clientInfoModalVisible
+                                                );
+                                            },
                                         },
                                         { text: "No" },
                                     ]
