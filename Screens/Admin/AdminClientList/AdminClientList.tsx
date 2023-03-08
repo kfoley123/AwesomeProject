@@ -436,9 +436,7 @@ export default function AdminClientList() {
                         <Seperator />
                         <ScrollView style={{ width: "100%" }}>
                             <View style={styles.aptsHeaders}>
-                                <Text style={styles.subtitle}>
-                                    Upcoming Appointments
-                                </Text>
+                                <Text style={styles.subtitle}></Text>
                                 {selectedClient.appointments.map(
                                     (appointment, i) => {
                                         return (
