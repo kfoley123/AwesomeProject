@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Text, View, StyleSheet } from "react-native";
 import Checkbox from "expo-checkbox";
 import { useSettingsState } from "../../../store";
