@@ -24,7 +24,7 @@ export default function SignInScreen() {
     const onSubmit = (data) => {
         const userData = userState.getUserData();
         if (
-            userData.email === data.email &&
+            userData.email === data.email.toLowerCase() &&
             userData.password === data.password
         ) {
             loggedInState.toggleLoggedInState();
@@ -44,10 +44,12 @@ export default function SignInScreen() {
                 render={({ field: { onChange, onBlur, value } }) => (
                     <TextInput
                         style={styles.input}
+                        autoCapitalize={"none"}
                         onBlur={onBlur}
                         placeholder={"Email"}
                         onChangeText={onChange}
                         keyboardType={"email-address"}
+                        textContentType={"emailAddress"}
                         value={value}
                     />
                 )}
@@ -59,12 +61,14 @@ export default function SignInScreen() {
                 rules={{
                     required: true,
                 }}
-                render={({ field: { onChange, onBlur, value } }) => (
+                render={({ field: { onChange, value } }) => (
                     <TextInput
                         style={styles.input}
-                        onBlur={onBlur}
+                        onBlur={() => handleSubmit(onSubmit)()}
                         placeholder={"Password"}
                         onChangeText={onChange}
+                        secureTextEntry={true}
+                        textContentType={"password"}
                         value={value}
                     />
                 )}
