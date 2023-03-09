@@ -7,11 +7,15 @@ export default function UserSetting() {
     const state = useSettingsState();
 
     function setSMS() {
-        state.setSMSBoxValue();
+        if (state.getEmailBoxValue() === false) {
+            return null;
+        } else state.setSMSBoxValue();
     }
 
     function setEmail() {
-        state.setEmailBoxValue();
+        if (state.getSMSBoxValue() === false) {
+            return null;
+        } else state.setEmailBoxValue();
     }
 
     return (
@@ -28,6 +32,7 @@ export default function UserSetting() {
                     />
                     <Text>SMS Message</Text>
                 </View>
+
                 <View style={styles.checkboxContainer}>
                     <Checkbox
                         style={styles.checkbox}
@@ -37,6 +42,10 @@ export default function UserSetting() {
                     />
                     <Text>Email</Text>
                 </View>
+
+                <Text style={styles.textCenter}>
+                    Please select at least one.
+                </Text>
             </View>
         </View>
     );
@@ -57,4 +66,5 @@ const styles = StyleSheet.create({
     checkbox: {
         margin: 8,
     },
+    textCenter: { textAlign: "center", paddingVertical: 5 },
 });
