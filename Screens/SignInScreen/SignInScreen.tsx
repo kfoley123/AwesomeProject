@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
     Image,
     TouchableOpacity,
@@ -15,6 +15,8 @@ export default function SignInScreen() {
     const userState = useUserDataState();
     const loggedInState = useLoggedInState();
 
+    const [failedLogin, setFailedLogin] = useState(false);
+
     const {
         control,
         handleSubmit,
@@ -29,6 +31,7 @@ export default function SignInScreen() {
         ) {
             loggedInState.toggleLoggedInState();
         }
+        setFailedLogin(true);
     };
 
     return (
@@ -74,7 +77,10 @@ export default function SignInScreen() {
                 )}
                 name="password"
             />
-            {errors.email && <Text>Password is required.</Text>}
+            {errors.password && <Text>Password is required.</Text>}
+            {failedLogin && (
+                <Text>Please check your credentials and try again.</Text>
+            )}
             <TouchableOpacity
                 style={styles.button}
                 disabled={Object.keys(errors).length > 0}
@@ -94,7 +100,7 @@ const styles = StyleSheet.create({
 
         justifyContent: "center",
     },
-    logo: { width: 300, height: 300, marginVertical: 35 },
+    logo: { width: 225, height: 225, marginTop: 40 },
     input: {
         backgroundColor: "white",
         height: 40,
