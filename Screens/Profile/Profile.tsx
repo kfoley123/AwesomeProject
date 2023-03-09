@@ -22,7 +22,8 @@ export default function Profile() {
     const [modalVisible, setModalVisible] = useState(false);
 
     function updateUserData(formData) {
-        state.setUserData(formData);
+        const combinedData = { ...user, ...formData };
+        state.setUserData(combinedData);
     }
 
     const {
