@@ -30,6 +30,7 @@ export default function SignInScreen() {
             userData.password === data.password
         ) {
             loggedInState.toggleLoggedInState();
+            setFailedLogin(false);
         }
         setFailedLogin(true);
     };
