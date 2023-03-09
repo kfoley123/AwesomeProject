@@ -30,7 +30,7 @@ export default function SignInScreen() {
             loggedInState.toggleLoggedInState();
         }
     };
-
+    console.log("dog");
     return (
         <SafeAreaView style={styles.container}>
             <StatusBar barStyle="dark-content" />
