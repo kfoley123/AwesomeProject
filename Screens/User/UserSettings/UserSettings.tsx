@@ -5,17 +5,16 @@ import { useSettingsState } from "../../../store";
 
 export default function UserSetting() {
     const state = useSettingsState();
-    const [checkBoxError, setCheckBoxError] = useState(false);
 
     function setSMS() {
         if (state.getEmailBoxValue() === false) {
-            setCheckBoxError(true);
+            return null;
         } else state.setSMSBoxValue();
     }
 
     function setEmail() {
         if (state.getSMSBoxValue() === false) {
-            setCheckBoxError(true);
+            return null;
         } else state.setEmailBoxValue();
     }
 
