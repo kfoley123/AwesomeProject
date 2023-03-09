@@ -4,7 +4,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import UserTabs from "../UserTabs/UserTabs";
-import UserProfile from "../UserProfile/UserProfile";
+import Profile from "../../Profile/Profile";
 import UserSettings from "../UserSettings/UserSettings";
 
 const Stack = createStackNavigator();
@@ -48,7 +48,7 @@ export default function UserView() {
             <Stack.Screen
                 name="Profile"
                 options={() => ({ headerBackTitle: "Back" })}
-                component={UserProfile}
+                component={Profile}
             />
             <Stack.Screen
                 name="Settings"

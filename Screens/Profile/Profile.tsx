@@ -11,9 +11,9 @@ import {
     TouchableOpacity,
 } from "react-native";
 import { useForm, Controller } from "react-hook-form";
-import { useUserDataState, useLoggedInState } from "../../../store";
+import { useUserDataState, useLoggedInState } from "../../store";
 
-export default function UserProfile() {
+export default function Profile() {
     const state = useUserDataState();
     const user = state.getUserData();
 
@@ -218,7 +218,7 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 18,
         fontWeight: "bold",
-        paddingBottom: 175,
+        paddingBottom: 140,
         textAlign: "center",
     },
     profileImg: {
