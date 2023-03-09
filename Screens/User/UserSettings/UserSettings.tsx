@@ -1,17 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import { Text, View, StyleSheet } from "react-native";
 import Checkbox from "expo-checkbox";
 import { useSettingsState } from "../../../store";
 
 export default function UserSetting() {
     const state = useSettingsState();
+    const [checkBoxError, setCheckBoxError] = useState(false);
 
     function setSMS() {
-        state.setSMSBoxValue();
+        if (state.getEmailBoxValue() === false) {
+            setCheckBoxError(true);
+        } else state.setSMSBoxValue();
     }
 
     function setEmail() {
-        state.setEmailBoxValue();
+        if (state.getSMSBoxValue() === false) {
+            setCheckBoxError(true);
+        } else state.setEmailBoxValue();
     }
 
     return (
@@ -28,6 +33,7 @@ export default function UserSetting() {
                     />
                     <Text>SMS Message</Text>
                 </View>
+
                 <View style={styles.checkboxContainer}>
                     <Checkbox
                         style={styles.checkbox}
@@ -37,6 +43,10 @@ export default function UserSetting() {
                     />
                     <Text>Email</Text>
                 </View>
+
+                <Text style={styles.textCenter}>
+                    Please select at least one.
+                </Text>
             </View>
         </View>
     );
@@ -57,4 +67,5 @@ const styles = StyleSheet.create({
     checkbox: {
         margin: 8,
     },
+    textCenter: { textAlign: "center", paddingVertical: 5 },
 });
