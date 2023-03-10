@@ -36,7 +36,7 @@ const userDataState = hookstate<UserDataModel>({
     username: "User2",
     email: "me@me.com",
     phoneNumber: "5555555555",
-    admin: false,
+    admin: true,
     password: "1234",
 });
 

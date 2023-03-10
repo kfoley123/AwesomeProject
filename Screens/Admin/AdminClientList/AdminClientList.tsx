@@ -7,14 +7,15 @@ import {
     StyleSheet,
     Image,
     Modal,
-    Pressable,
     TextInput,
     TouchableOpacity,
-    ViewStyle,
 } from "react-native";
 import { useForm, Controller } from "react-hook-form";
 import { Ionicons } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
+import Seperator from "../../../Components/Seperator";
+import Button from "../../../Components/Button";
+
 export default function AdminClientList() {
     const [selectedClient, setSelectedClient] = useState({
         id: 0,
@@ -255,28 +256,26 @@ export default function AdminClientList() {
                             )}
 
                             <View style={styles.buttonContainer}>
-                                <Pressable
-                                    style={styles.button}
-                                    onPress={() => {
+                                <Button
+                                    title="Cancel"
+                                    buttonType="standard"
+                                    buttonWidth={75}
+                                    buttonOnPress={() => {
                                         setModalVisible(!modalVisible);
                                         reset();
                                     }}
-                                >
-                                    <Text style={styles.buttonText}>
-                                        Cancel
-                                    </Text>
-                                </Pressable>
+                                />
 
-                                <Pressable
-                                    style={styles.button}
-                                    disabled={Object.keys(errors).length > 0}
-                                    onPress={() => {
+                                <Button
+                                    title="Add"
+                                    buttonType="standard"
+                                    buttonWidth={75}
+                                    isDisabled={Object.keys(errors).length > 0}
+                                    buttonOnPress={() => {
                                         setModalVisible(!modalVisible);
                                         handleSubmit(onSubmit)();
                                     }}
-                                >
-                                    <Text style={styles.buttonText}>Add</Text>
-                                </Pressable>
+                                />
                             </View>
                         </View>
                     </View>
@@ -396,15 +395,14 @@ export default function AdminClientList() {
                                 reset();
                             }}
                         >
-                            <Text style={styles.backButtonText}>
-                                <MaterialIcons name="chevron-left" />
-                                Back
-                            </Text>
+                            <Text style={styles.backButtonText}>◄ Back</Text>
                         </TouchableOpacity>
 
-                        <TouchableOpacity
-                            style={styles.removeButton}
-                            onPress={() =>
+                        <Button
+                            title="Remove"
+                            buttonType="remove"
+                            buttonWidth={75}
+                            buttonOnPress={() =>
                                 Alert.alert(
                                     "Remove Client",
                                     "Are you sure you want to permanently remove this client?",
@@ -429,14 +427,14 @@ export default function AdminClientList() {
                                     ]
                                 )
                             }
-                        >
-                            <Text style={styles.buttonText}>Remove</Text>
-                        </TouchableOpacity>
+                        />
 
                         <Seperator />
                         <ScrollView style={{ width: "100%" }}>
                             <View style={styles.aptsHeaders}>
-                                <Text style={styles.subtitle}></Text>
+                                <Text style={styles.subtitle}>
+                                    Upcoming Appointments
+                                </Text>
                                 {selectedClient.appointments.map(
                                     (appointment, i) => {
                                         return (
@@ -459,14 +457,15 @@ export default function AdminClientList() {
                                         );
                                     }
                                 )}
-                                <TouchableOpacity
-                                    style={styles.button}
-                                    onPress={() => {
+
+                                <Button
+                                    title="Book"
+                                    buttonType="standard"
+                                    buttonWidth={75}
+                                    buttonOnPress={() => {
                                         console.log("Calendar Open ");
                                     }}
-                                >
-                                    <Text style={styles.buttonText}>Book</Text>
-                                </TouchableOpacity>
+                                />
                             </View>
 
                             <View style={styles.aptsHeaders}>
@@ -532,7 +531,6 @@ const styles = StyleSheet.create({
     modalContainer: {
         margin: 20,
         backgroundColor: "whitesmoke",
-        paddingHorizontal: 50,
         paddingTop: 60,
         alignItems: "center",
         height: "100%",
@@ -553,15 +551,7 @@ const styles = StyleSheet.create({
         marginBottom: 15,
         textAlign: "center",
     },
-    button: {
-        backgroundColor: "deepskyblue",
-        textAlign: "center",
-        borderRadius: 7,
-        padding: 10,
-        margin: 5,
-        elevation: 2,
-        width: 75,
-    },
+
     backButton: {
         backgroundColor: "deepskyblue",
         textAlign: "center",
@@ -585,11 +575,7 @@ const styles = StyleSheet.create({
     },
 
     backButtonText: { color: "white", fontWeight: "600" },
-    buttonText: {
-        color: "white",
-        fontWeight: "600",
-        textAlign: "center",
-    },
+
     buttonContainer: { flexDirection: "row", justifyContent: "center" },
     input: {
         backgroundColor: "white",
@@ -622,12 +608,3 @@ const styles = StyleSheet.create({
     aptsHeaders: { alignItems: "center", width: "100%" },
     appointmentInfo: { padding: 5 },
 });
-
-const seperatorStyles: ViewStyle = {
-    height: 1,
-    width: "100%",
-    backgroundColor: "#a9a9a9",
-    marginVertical: 10,
-};
-
-const Seperator = () => <View style={seperatorStyles} />;
