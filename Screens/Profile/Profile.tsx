@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import { useForm, Controller } from "react-hook-form";
 import { useUserDataState, useLoggedInState } from "../../store";
-import Button from "../../Components/Button";
+import CustomButton from "../../Components/CustomButton";
 
 export default function Profile() {
     const state = useUserDataState();
@@ -66,7 +66,7 @@ export default function Profile() {
                 <Text>{user.phoneNumber}</Text>
             </View>
 
-            <Button
+            <CustomButton
                 title="Log Out"
                 buttonType="standard"
                 buttonWidth={75}
@@ -160,7 +160,7 @@ export default function Profile() {
                         )}
 
                         <View style={styles.buttons}>
-                            <Button
+                            <CustomButton
                                 title="Cancel"
                                 buttonType="standard"
                                 buttonWidth={75}
@@ -170,7 +170,7 @@ export default function Profile() {
                                 }}
                             />
 
-                            <Button
+                            <CustomButton
                                 title="Done"
                                 isDisabled={Object.keys(errors).length > 0}
                                 buttonType="standard"

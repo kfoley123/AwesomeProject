@@ -14,7 +14,7 @@ import { useForm, Controller } from "react-hook-form";
 import { Ionicons } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import Seperator from "../../../Components/Seperator";
-import Button from "../../../Components/Button";
+import CustomButton from "../../../Components/CustomButton";
 
 export default function AdminClientList() {
     const [selectedClient, setSelectedClient] = useState({
@@ -256,7 +256,7 @@ export default function AdminClientList() {
                             )}
 
                             <View style={styles.buttonContainer}>
-                                <Button
+                                <CustomButton
                                     title="Cancel"
                                     buttonType="standard"
                                     buttonWidth={75}
@@ -266,7 +266,7 @@ export default function AdminClientList() {
                                     }}
                                 />
 
-                                <Button
+                                <CustomButton
                                     title="Add"
                                     buttonType="standard"
                                     buttonWidth={75}
@@ -398,7 +398,7 @@ export default function AdminClientList() {
                             <Text style={styles.backButtonText}>◄ Back</Text>
                         </TouchableOpacity>
 
-                        <Button
+                        <CustomButton
                             title="Remove"
                             buttonType="remove"
                             buttonWidth={75}
@@ -458,7 +458,7 @@ export default function AdminClientList() {
                                     }
                                 )}
 
-                                <Button
+                                <CustomButton
                                     title="Book"
                                     buttonType="standard"
                                     buttonWidth={75}

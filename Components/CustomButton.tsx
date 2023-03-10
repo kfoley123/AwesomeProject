@@ -9,7 +9,7 @@ type ButtonProps = {
     buttonType: string;
 };
 
-export default function Button(props: ButtonProps) {
+export default function CustomButton(props: ButtonProps) {
     const { title, buttonWidth, buttonOnPress, isDisabled, buttonType } = props;
     return (
         <TouchableOpacity
