@@ -4,14 +4,13 @@ import {
     Modal,
     Text,
     TextInput,
-    Pressable,
-    Button,
     View,
     Image,
     TouchableOpacity,
 } from "react-native";
 import { useForm, Controller } from "react-hook-form";
 import { useUserDataState, useLoggedInState } from "../../store";
+import Button from "../../Components/Button";
 
 export default function Profile() {
     const state = useUserDataState();
@@ -54,10 +53,9 @@ export default function Profile() {
                 style={styles.profileImg}
             />
 
-            <Button
-                title="edit profile"
-                onPress={() => setModalVisible(!modalVisible)}
-            />
+            <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
+                <Text style={styles.textLink}>edit profile</Text>
+            </TouchableOpacity>
             <View style={styles.fields}>
                 <Text>{user.username} </Text>
             </View>
@@ -68,12 +66,12 @@ export default function Profile() {
                 <Text>{user.phoneNumber}</Text>
             </View>
 
-            <TouchableOpacity
-                onPress={loggedInState.toggleLoggedInState}
-                style={styles.logoutButton}
-            >
-                <Text style={styles.buttonText}>Log Out</Text>
-            </TouchableOpacity>
+            <Button
+                title="Log Out"
+                buttonType="standard"
+                buttonWidth={75}
+                buttonOnPress={loggedInState.toggleLoggedInState}
+            />
 
             <Modal
                 animationType="slide"
@@ -162,26 +160,26 @@ export default function Profile() {
                         )}
 
                         <View style={styles.buttons}>
-                            <Pressable
-                                style={styles.button}
-                                onPress={() => {
+                            <Button
+                                title="Cancel"
+                                buttonType="standard"
+                                buttonWidth={75}
+                                buttonOnPress={() => {
                                     setModalVisible(!modalVisible);
                                     reset(user);
                                 }}
-                            >
-                                <Text style={styles.buttonText}>Cancel</Text>
-                            </Pressable>
+                            />
 
-                            <Pressable
-                                style={styles.button}
-                                disabled={Object.keys(errors).length > 0}
-                                onPress={() => {
+                            <Button
+                                title="Done"
+                                isDisabled={Object.keys(errors).length > 0}
+                                buttonType="standard"
+                                buttonWidth={75}
+                                buttonOnPress={() => {
                                     setModalVisible(!modalVisible);
                                     handleSubmit(onSubmit)();
                                 }}
-                            >
-                                <Text style={styles.buttonText}>Done</Text>
-                            </Pressable>
+                            />
                         </View>
                     </View>
                 </View>
@@ -205,20 +203,12 @@ const styles = StyleSheet.create({
         borderRadius: 4,
         margin: 10,
     },
-    button: {
-        backgroundColor: "deepskyblue",
-        padding: 10,
-        borderRadius: 5,
-        margin: 5,
-        width: 80,
+    textLink: {
+        textAlign: "center",
+        color: "deepskyblue",
+        fontWeight: "600",
+        padding: 1,
     },
-    logoutButton: {
-        backgroundColor: "deepskyblue",
-        padding: 10,
-        borderRadius: 7,
-        marginVertical: 15,
-    },
-    buttonText: { color: "white", fontWeight: "500", textAlign: "center" },
     title: {
         fontSize: 18,
         fontWeight: "bold",
