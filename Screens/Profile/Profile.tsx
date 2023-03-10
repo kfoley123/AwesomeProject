@@ -169,7 +169,7 @@ export default function Profile() {
                                     reset(user);
                                 }}
                             >
-                                <Text>Cancel</Text>
+                                <Text style={styles.buttonText}>Cancel</Text>
                             </Pressable>
 
                             <Pressable
@@ -180,7 +180,7 @@ export default function Profile() {
                                     handleSubmit(onSubmit)();
                                 }}
                             >
-                                <Text>Done</Text>
+                                <Text style={styles.buttonText}>Done</Text>
                             </Pressable>
                         </View>
                     </View>
@@ -206,12 +206,11 @@ const styles = StyleSheet.create({
         margin: 10,
     },
     button: {
-        backgroundColor: "pink",
-        justifyContent: "center",
-        borderRadius: 100,
+        backgroundColor: "deepskyblue",
         padding: 10,
+        borderRadius: 5,
         margin: 5,
-        elevation: 2,
+        width: 80,
     },
     logoutButton: {
         backgroundColor: "deepskyblue",
@@ -219,7 +218,7 @@ const styles = StyleSheet.create({
         borderRadius: 7,
         marginVertical: 15,
     },
-    buttonText: { color: "white", fontWeight: "500" },
+    buttonText: { color: "white", fontWeight: "500", textAlign: "center" },
     title: {
         fontSize: 18,
         fontWeight: "bold",
