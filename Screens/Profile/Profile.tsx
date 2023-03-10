@@ -39,7 +39,11 @@ export default function Profile() {
         },
     });
 
-    const onSubmit = (data) => updateUserData(data);
+    const onSubmit = (data) => {
+        const formattedData = { ...data, email: data.email.toLowerCase() };
+        updateUserData(formattedData);
+        reset(user);
+    };
 
     return (
         <View style={{ alignItems: "center", paddingTop: "10%" }}>
@@ -146,7 +150,7 @@ export default function Profile() {
                                 <TextInput
                                     style={styles.input}
                                     onBlur={onBlur}
-                                    keyboardType={"numeric"}
+                                    keyboardType={"phone-pad"}
                                     onChangeText={onChange}
                                     value={value}
                                 />
