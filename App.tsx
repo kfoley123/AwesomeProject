@@ -23,7 +23,7 @@ export default function App() {
                             options={{ headerShown: false }}
                         />
                     </>
-                ) : userState.getAdminData() ? (
+                ) : userState.checkAdminData() ? (
                     <>
                         <Stack.Screen
                             name="AdminView"

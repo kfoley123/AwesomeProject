@@ -33,10 +33,10 @@ export interface UserDataModel {
 }
 
 const userDataState = hookstate<UserDataModel>({
-    username: "User1",
+    username: "User2",
     email: "me@me.com",
     phoneNumber: "5555555555",
-    admin: false,
+    admin: true,
     password: "1234",
 });
 
@@ -44,7 +44,7 @@ export const useUserDataState = () => {
     const state = useHookstate(userDataState);
     return {
         getUserData: () => state.value,
-        getAdminData: () => state.admin.value,
+        checkAdminData: () => state.admin.value,
         setUserData: (formData) => state.set(formData),
     };
 };

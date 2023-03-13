@@ -4,16 +4,15 @@ import {
     Modal,
     Text,
     TextInput,
-    Pressable,
-    Button,
     View,
     Image,
     TouchableOpacity,
 } from "react-native";
 import { useForm, Controller } from "react-hook-form";
-import { useUserDataState, useLoggedInState } from "../../../store";
+import { useUserDataState, useLoggedInState } from "../../store";
+import CustomButton, { buttonOptions } from "../../Components/CustomButton";
 
-export default function UserProfile() {
+export default function Profile() {
     const state = useUserDataState();
     const user = state.getUserData();
 
@@ -22,7 +21,8 @@ export default function UserProfile() {
     const [modalVisible, setModalVisible] = useState(false);
 
     function updateUserData(formData) {
-        state.setUserData(formData);
+        const combinedData = { ...user, ...formData };
+        state.setUserData(combinedData);
     }
 
     const {
@@ -53,10 +53,9 @@ export default function UserProfile() {
                 style={styles.profileImg}
             />
 
-            <Button
-                title="edit profile"
-                onPress={() => setModalVisible(!modalVisible)}
-            />
+            <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
+                <Text style={styles.textLink}>edit profile</Text>
+            </TouchableOpacity>
             <View style={styles.fields}>
                 <Text>{user.username} </Text>
             </View>
@@ -67,12 +66,12 @@ export default function UserProfile() {
                 <Text>{user.phoneNumber}</Text>
             </View>
 
-            <TouchableOpacity
-                onPress={loggedInState.toggleLoggedInState}
-                style={styles.logoutButton}
-            >
-                <Text style={styles.buttonText}>Log Out</Text>
-            </TouchableOpacity>
+            <CustomButton
+                title="Log Out"
+                buttonType={buttonOptions.STANDARD}
+                buttonWidth={75}
+                buttonOnPress={loggedInState.toggleLoggedInState}
+            />
 
             <Modal
                 animationType="slide"
@@ -161,26 +160,26 @@ export default function UserProfile() {
                         )}
 
                         <View style={styles.buttons}>
-                            <Pressable
-                                style={styles.button}
-                                onPress={() => {
+                            <CustomButton
+                                title="Cancel"
+                                buttonType={buttonOptions.STANDARD}
+                                buttonWidth={75}
+                                buttonOnPress={() => {
                                     setModalVisible(!modalVisible);
                                     reset(user);
                                 }}
-                            >
-                                <Text>Cancel</Text>
-                            </Pressable>
+                            />
 
-                            <Pressable
-                                style={styles.button}
-                                disabled={Object.keys(errors).length > 0}
-                                onPress={() => {
+                            <CustomButton
+                                title="Done"
+                                isDisabled={Object.keys(errors).length > 0}
+                                buttonType={buttonOptions.STANDARD}
+                                buttonWidth={75}
+                                buttonOnPress={() => {
                                     setModalVisible(!modalVisible);
                                     handleSubmit(onSubmit)();
                                 }}
-                            >
-                                <Text>Done</Text>
-                            </Pressable>
+                            />
                         </View>
                     </View>
                 </View>
@@ -204,25 +203,16 @@ const styles = StyleSheet.create({
         borderRadius: 4,
         margin: 10,
     },
-    button: {
-        backgroundColor: "pink",
-        justifyContent: "center",
-        borderRadius: 100,
-        padding: 10,
-        margin: 5,
-        elevation: 2,
+    textLink: {
+        textAlign: "center",
+        color: "deepskyblue",
+        fontWeight: "600",
+        padding: 1,
     },
-    logoutButton: {
-        backgroundColor: "deepskyblue",
-        padding: 10,
-        borderRadius: 7,
-        marginVertical: 15,
-    },
-    buttonText: { color: "white", fontWeight: "500" },
     title: {
         fontSize: 18,
         fontWeight: "bold",
-        paddingBottom: 175,
+        paddingBottom: 140,
         textAlign: "center",
     },
     profileImg: {
