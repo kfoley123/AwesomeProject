@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import { useForm, Controller } from "react-hook-form";
 import { useUserDataState, useLoggedInState } from "../../store";
-import CustomButton from "../../Components/CustomButton";
+import CustomButton, { buttonOptions } from "../../Components/CustomButton";
 
 export default function Profile() {
     const state = useUserDataState();
@@ -68,7 +68,7 @@ export default function Profile() {
 
             <CustomButton
                 title="Log Out"
-                buttonType="standard"
+                buttonType={buttonOptions.STANDARD}
                 buttonWidth={75}
                 buttonOnPress={loggedInState.toggleLoggedInState}
             />
@@ -162,7 +162,7 @@ export default function Profile() {
                         <View style={styles.buttons}>
                             <CustomButton
                                 title="Cancel"
-                                buttonType="standard"
+                                buttonType={buttonOptions.STANDARD}
                                 buttonWidth={75}
                                 buttonOnPress={() => {
                                     setModalVisible(!modalVisible);
@@ -173,7 +173,7 @@ export default function Profile() {
                             <CustomButton
                                 title="Done"
                                 isDisabled={Object.keys(errors).length > 0}
-                                buttonType="standard"
+                                buttonType={buttonOptions.STANDARD}
                                 buttonWidth={75}
                                 buttonOnPress={() => {
                                     setModalVisible(!modalVisible);

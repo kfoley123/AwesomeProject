@@ -14,7 +14,7 @@ import { useForm, Controller } from "react-hook-form";
 import { Ionicons } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import Seperator from "../../../Components/Seperator";
-import CustomButton from "../../../Components/CustomButton";
+import CustomButton, { buttonOptions } from "../../../Components/CustomButton";
 
 export default function AdminClientList() {
     const [selectedClient, setSelectedClient] = useState({
@@ -258,7 +258,7 @@ export default function AdminClientList() {
                             <View style={styles.buttonContainer}>
                                 <CustomButton
                                     title="Cancel"
-                                    buttonType="standard"
+                                    buttonType={buttonOptions.STANDARD}
                                     buttonWidth={75}
                                     buttonOnPress={() => {
                                         setModalVisible(!modalVisible);
@@ -268,7 +268,7 @@ export default function AdminClientList() {
 
                                 <CustomButton
                                     title="Add"
-                                    buttonType="standard"
+                                    buttonType={buttonOptions.STANDARD}
                                     buttonWidth={75}
                                     isDisabled={Object.keys(errors).length > 0}
                                     buttonOnPress={() => {
@@ -400,7 +400,7 @@ export default function AdminClientList() {
 
                         <CustomButton
                             title="Remove"
-                            buttonType="remove"
+                            buttonType={buttonOptions.REMOVE}
                             buttonWidth={75}
                             buttonOnPress={() =>
                                 Alert.alert(
@@ -460,7 +460,7 @@ export default function AdminClientList() {
 
                                 <CustomButton
                                     title="Book"
-                                    buttonType="standard"
+                                    buttonType={buttonOptions.STANDARD}
                                     buttonWidth={75}
                                     buttonOnPress={() => {
                                         console.log("Calendar Open ");

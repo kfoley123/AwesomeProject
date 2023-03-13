@@ -6,17 +6,23 @@ type ButtonProps = {
     buttonWidth: number;
     buttonOnPress?: () => void;
     isDisabled?: boolean;
-    buttonType: string;
+    buttonType: buttonOptions;
 };
+
+export enum buttonOptions {
+    STANDARD,
+    REMOVE,
+}
 
 export default function CustomButton(props: ButtonProps) {
     const { title, buttonWidth, buttonOnPress, isDisabled, buttonType } = props;
+
     return (
         <TouchableOpacity
             disabled={isDisabled}
             onPress={() => buttonOnPress()}
             style={[
-                buttonType === "standard"
+                buttonType === buttonOptions.STANDARD
                     ? { ...styles.button, width: buttonWidth }
                     : { ...styles.removeButton, width: buttonWidth },
             ]}
