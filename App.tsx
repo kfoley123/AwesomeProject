@@ -11,7 +11,7 @@ import UserProfile from "./Screens/UserProfile/UserProfile";
 import UserSettings from "./Screens/UserSettings/UserSettings";
 
 //Amplify
-import { Amplify, DataStore} from 'aws-amplify'
+import { Amplify, DataStore, Auth} from 'aws-amplify'
 import awsconfig from './src/aws-exports'
 import {  UserModel, UserSettingsModel } from "./src/models";
 import {  useUserSettingsState, useUserState } from "./store";
@@ -24,7 +24,31 @@ function getHeaderTitle(route) {
     return getFocusedRouteNameFromRoute(route);
 }
 
+// async function signUp() {
+//     try {
+//         const { user } = await Auth.signUp({
+//             username: "oakeef@gmail.com",
+//             password: "P@ssword1",
+//             attributes: {
+//                 email: "oakeef@gmail.com",          // optional
+//                 phone_number: "+14319980290",   // optional - E.164 number convention
+//                 name: "Evan" // other custom attributes 
+//             },
+//             autoSignIn: { // optional - enables auto sign in after user is confirmed
+//                 enabled: true,
+//             }
+//         });
+//         console.log(user);
+//     } catch (error) {
+//         console.log('error signing up:', error);
+//     }
+// }
+
 export default function App() {
+
+    useEffect(()=> {
+        signUp()
+    } ,[])
   
     const userDBState = useUserState()
     const userSettingsState = useUserSettingsState()
