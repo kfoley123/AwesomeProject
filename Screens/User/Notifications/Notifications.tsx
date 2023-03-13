@@ -1,45 +1,74 @@
 import React from "react";
-import { StatusBar } from "expo-status-bar";
-import {
-    StyleSheet,
-    Alert,
-    Button,
-    TouchableOpacity,
-    View,
-    Image,
-} from "react-native";
+
+import { StyleSheet, View, Text } from "react-native";
+
+function timeConvert(timestamp) {
+    const date = new Date(timestamp * 1000);
+    const month = date.getMonth();
+    const day = date.getDay();
+    const year = date.getFullYear();
+
+    return `${month}/${day}/${year}`;
+}
 
 export default function Notifications() {
+    const userNotifications = [
+        {
+            notificationType: "Appointment Approval",
+            message: "Your appointment on X date has been approved",
+            date: 1678730179,
+        },
+        {
+            notificationType: "Appointment Cancellation",
+            message: "Your appointment on X date has been cancelled",
+            date: 1678388179,
+        },
+        {
+            notificationType: "Appointment Confirmation",
+            message:
+                "Your appointment with Josh Dobbs is on X date. You have 24 hours to cancel or reschedule before deposit is forfeited",
+            date: 1678388179,
+        },
+        {
+            notificationType: "Appointment Confirmation",
+            message: "Your appointment with Josh Dobbs is in 24 hours",
+            date: 1678730179,
+        },
+        {
+            notificationType: "Books Opened",
+            message: "The booking period for Josh Dobbs has now opened.",
+            date: 1678816579,
+        },
+    ];
     return (
         <View style={styles.container}>
-            <TouchableOpacity onPress={() => console.log("image tapped")}>
-                <Image
-                    source={{
-                        width: 400,
-                        height: 400,
-                        uri: "https://i.pinimg.com/originals/cc/2e/01/cc2e011cc5236801ee8fd6d2fc5dc2c5.jpg",
-                    }}
-                />
-            </TouchableOpacity>
-            <Button
-                title="Click Me"
-                onPress={() =>
-                    Alert.alert("Title", "My Message", [
-                        { text: "Yes" },
-                        { text: "No" },
-                    ])
-                }
-            />
-            <StatusBar style="auto" />
+            {userNotifications.map((notification, i) => {
+                return (
+                    <View key={i} style={styles.notification}>
+                        <View>
+                            <Text>{notification.notificationType}</Text>
+                            <Text>{notification.message}</Text>
+                            <Text>{timeConvert(notification.date)}</Text>
+                        </View>
+                    </View>
+                );
+            })}
         </View>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
         backgroundColor: "#fff",
         alignItems: "center",
         justifyContent: "center",
+    },
+    notification: {
+        borderWidth: 0.2,
+        borderColor: "lightgrey",
+        height: 70,
+
+        padding: 5,
+        width: "100%",
     },
 });
