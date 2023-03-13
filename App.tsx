@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Pressable, Image, StyleSheet } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import {
@@ -10,6 +10,14 @@ import UserTabs from "./Screens/UserTabs/UserTabs";
 import UserProfile from "./Screens/UserProfile/UserProfile";
 import UserSettings from "./Screens/UserSettings/UserSettings";
 
+//Amplify
+import { Amplify, DataStore } from 'aws-amplify'
+import awsconfig from './src/aws-exports'
+import {  UserModel, UserSettingsModel } from "./src/models";
+import {  useUserSettingsState, useUserState } from "./store";
+
+Amplify.configure(awsconfig)
+
 const Stack = createStackNavigator();
 
 function getHeaderTitle(route) {
@@ -17,6 +25,31 @@ function getHeaderTitle(route) {
 }
 
 export default function App() {
+  
+    const userDBState = useUserState()
+    const userSettingsState = useUserSettingsState()
+
+    useEffect(() => {
+        const userSubscription = DataStore.observeQuery(UserModel).subscribe((snapshot) => {
+            const {items} = snapshot;
+           
+            userDBState.setUserStateData(items[0])
+        });
+
+        const id = userDBState.getUserStateData().userModelUserSettingsModelId;
+        const settingsSubscription = DataStore.observeQuery(UserSettingsModel, p => p.id.eq(id)).subscribe(snapshot => {
+            const {items} = snapshot;
+            
+            userSettingsState.setUserSettings(items[0])
+          });
+
+        return function cleanup() {
+            userSubscription.unsubscribe();
+            settingsSubscription.unsubscribe()
+          }
+
+    }, [])
+
     return (
         <NavigationContainer>
             <Stack.Navigator>
@@ -36,6 +69,7 @@ export default function App() {
                                     style={styles.profileimg}
                                 />
                             </Pressable>
+                            
                         ),
                         headerLeft: () => (
                             <Pressable
@@ -81,3 +115,4 @@ const styles = StyleSheet.create({
         marginLeft: 20,
     },
 });
+

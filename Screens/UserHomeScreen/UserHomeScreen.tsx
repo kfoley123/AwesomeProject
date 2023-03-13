@@ -6,7 +6,7 @@ import {
     View,
     TouchableOpacity,
 } from "react-native";
-import { useSettingsState } from "../../store";
+import { useUserSettingsState } from "../../store";
 // TODO
 // eslint-disable-next-line react/prop-types
 export default function UserHomeScreen({ navigation }) {
@@ -19,14 +19,15 @@ export default function UserHomeScreen({ navigation }) {
 
     const [waitlistRequests] = useState([]);
 
-    const state = useSettingsState();
+    const state = useUserSettingsState();
+    const settingsState = state.getUserSettings();
 
     function getNotificationType() {
-        if (state.getSMSBoxValue() && state.getEmailBoxValue()) {
+        if (settingsState.textNotification && settingsState.emailNotification) {
             return "SMS Message and Email";
-        } else if (state.getSMSBoxValue()) {
+        } else if (settingsState.textNotification) {
             return "SMS Message";
-        } else if (state.getEmailBoxValue()) {
+        } else if (settingsState.emailNotification) {
             return "Email";
         } else return "Please choose a notification preference";
     }
@@ -60,8 +61,12 @@ export default function UserHomeScreen({ navigation }) {
                     alignItems: "center",
                 }}
             >
-                <Text style={styles.header}> Waitlist Requests</Text>
-                <Text> You will be notified by {getNotificationType()}.</Text>
+                {settingsState && (
+                    <>
+                        <Text style={styles.header}> Waitlist Requests</Text>
+                        <Text> You will be notified by {getNotificationType()}.</Text>
+                    </>
+                )}
 
                 <TouchableOpacity
                     // eslint-disable-next-line react/prop-types

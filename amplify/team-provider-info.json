@@ -1,0 +1,15 @@
+{
+  "staging": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-tattooapp-staging-151049-authRole",
+      "UnauthRoleArn": "arn:aws:iam::797653841926:role/amplify-tattooapp-staging-151049-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::797653841926:role/amplify-tattooapp-staging-151049-authRole",
+      "Region": "us-east-2",
+      "DeploymentBucketName": "amplify-tattooapp-staging-151049-deployment",
+      "UnauthRoleName": "amplify-tattooapp-staging-151049-unauthRole",
+      "StackName": "amplify-tattooapp-staging-151049",
+      "StackId": "arn:aws:cloudformation:us-east-2:797653841926:stack/amplify-tattooapp-staging-151049/95503e30-b9d5-11ed-ade6-0a6bfe447b3c",
+      "AmplifyAppId": "deqj4jpcvymq5"
+    }
+  }
+}

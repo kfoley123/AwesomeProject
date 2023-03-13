@@ -1,21 +1,25 @@
 import { hookstate, useHookstate } from "@hookstate/core";
+import { UserModel, UserSettingsModel } from "./src/models";
 
-export interface SettingsModel {
-    SMSBoxChecked: boolean;
-    emailBoxChecked: boolean;
-}
+// AMPLIFY DATA
 
-const settingsState = hookstate<SettingsModel>({
-    SMSBoxChecked: true,
-    emailBoxChecked: true,
-});
+const userState = hookstate<UserModel>({} as UserModel);
 
-export const useSettingsState = () => {
-    const state = useHookstate(settingsState);
+export const useUserState = () => {
+    const state = useHookstate(userState);
     return {
-        getSMSBoxValue: () => state.SMSBoxChecked.value,
-        getEmailBoxValue: () => state.emailBoxChecked.value,
-        setSMSBoxValue: () => state.SMSBoxChecked.set((v) => !v),
-        setEmailBoxValue: () => state.emailBoxChecked.set((v) => !v),
+        getUserStateData: () => state.value,
+        setUserStateData: (data) => state.set(data)
+    };
+};
+
+
+const userSettingsState = hookstate<UserSettingsModel>({} as UserSettingsModel);
+
+export const useUserSettingsState = () => {
+    const state = useHookstate(userSettingsState);
+    return {
+        getUserSettings: () => state.value,
+        setUserSettings: (data) => state.set(data),
     };
 };

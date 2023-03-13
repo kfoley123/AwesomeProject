@@ -1,17 +1,21 @@
 import React from "react";
 import { Text, View, StyleSheet } from "react-native";
 import Checkbox from "expo-checkbox";
-import { useSettingsState } from "../../store";
+import { useUserSettingsState } from "../../store";
+import { DataStore } from "aws-amplify";
+import { UserSettingsModel } from "../../src/models";
 
 export default function UserSetting() {
-    const state = useSettingsState();
+    const userSettingsState = useUserSettingsState();
+    const userSettingsData = userSettingsState.getUserSettings()
 
-    function setSMS() {
-        state.setSMSBoxValue();
-    }
-
-    function setEmail() {
-        state.setEmailBoxValue();
+    async function updateSettings(updatedSettings) {
+        await DataStore.save(
+            UserSettingsModel.copyOf(userSettingsData, updated => {
+              updated.textNotification = updatedSettings.text;
+              updated.emailNotification = updatedSettings.email;
+            })
+          );
     }
 
     return (
@@ -22,18 +26,18 @@ export default function UserSetting() {
                 <View style={styles.checkboxContainer}>
                     <Checkbox
                         style={styles.checkbox}
-                        value={state.getSMSBoxValue()}
-                        onValueChange={setSMS}
-                        color={state.getSMSBoxValue() ? "#4630EB" : undefined}
+                        value={userSettingsData.textNotification}
+                        onValueChange={(value) => updateSettings({text: value, email: userSettingsData.emailNotification})}
+                        color={"#4630EB"}
                     />
                     <Text>SMS Message</Text>
                 </View>
                 <View style={styles.checkboxContainer}>
                     <Checkbox
                         style={styles.checkbox}
-                        value={state.getEmailBoxValue()}
-                        onValueChange={setEmail}
-                        color={state.getEmailBoxValue() ? "#4630EB" : undefined}
+                        value={userSettingsData.emailNotification}
+                        onValueChange={(value) => updateSettings({email: value, text: userSettingsData.textNotification})}
+                        color={"#4630EB"}
                     />
                     <Text>Email</Text>
                 </View>

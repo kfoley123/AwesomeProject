@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import {
     StyleSheet,
     Modal,
@@ -11,13 +11,28 @@ import {
     Image,
 } from "react-native";
 import { useForm, Controller } from "react-hook-form";
+import { useUserState } from "../../store";
+
+// Amplify Stuff
+import { DataStore } from '@aws-amplify/datastore';
+import { UserModel } from '../../src/models';
+
+async function updateUser(userDB, updatedUser) {
+    await DataStore.save(
+        UserModel.copyOf(userDB, updated => {
+          updated.name = updatedUser.name;
+          updated.email = updatedUser.email;
+          updated.phone = updatedUser.phone;
+        })
+      );
+}
+
 
 export default function UserProfile() {
-    const [userData, setUserData] = useState({
-        username: "Your Name",
-        email: "example@example.com",
-        phoneNumber: "5555555555",
-    });
+
+    //State for Amplify User from DB
+    const userDBState = useUserState();
+    const userDBData = userDBState.getUserStateData();
 
     const [modalVisible, setModalVisible] = useState(false);
 
@@ -28,17 +43,22 @@ export default function UserProfile() {
         reset,
     } = useForm({
         defaultValues: {
-            username: userData.username,
-            email: userData.email,
-            phoneNumber: userData.phoneNumber,
+            username: userDBData.name,
+            email: userDBData.email,
+            phoneNumber: userDBData.phone,
         },
     });
 
-    const onSubmit = (data) =>
-        setUserData((prevData) => ({
-            ...prevData,
-            ...data,
-        }));
+    const onSubmit = (data) => {
+
+        const updatedUser = {
+            name: data.username,
+            email: data.email,
+            phone: data.phoneNumber,
+        };
+
+        updateUser(userDBData, updatedUser);
+    }
 
     return (
         <View style={{ alignItems: "center", paddingTop: "10%" }}>
@@ -59,13 +79,13 @@ export default function UserProfile() {
                 onPress={() => setModalVisible(!modalVisible)}
             />
             <View style={styles.fields}>
-                <Text>{userData.username} </Text>
+                <Text>{userDBData.name}</Text>
             </View>
             <View style={styles.fields}>
-                <Text>{userData.email}</Text>
+                <Text>{userDBData.email}</Text>
             </View>
             <View style={styles.fields}>
-                <Text>{userData.phoneNumber}</Text>
+                <Text>{userDBData.phone}</Text>
             </View>
 
             <Modal
@@ -118,6 +138,7 @@ export default function UserProfile() {
                             rules={{
                                 maxLength: 100,
                                 required: true,
+                                // eslint-disable-next-line no-useless-escape
                                 pattern: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
                             }}
                             render={({
@@ -166,7 +187,11 @@ export default function UserProfile() {
                                 style={styles.button}
                                 onPress={() => {
                                     setModalVisible(!modalVisible);
-                                    reset(userData);
+                                    reset({
+                                        username: userDBData.name,
+                                        email: userDBData.email,
+                                        phoneNumber: userDBData.phone,
+                                    });
                                 }}
                             >
                                 <Text>Cancel</Text>

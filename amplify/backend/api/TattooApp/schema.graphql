@@ -1,0 +1,21 @@
+enum AccountTypes {
+  ADMIN
+  USER
+}
+
+type UserModel @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  email: String
+  name: String
+  phone: String
+  type: AccountTypes
+  UserSettingsModel: UserSettingsModel @hasOne
+}
+
+type UserSettingsModel @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  emailNotification: Boolean
+  textNotification: Boolean
+  accountType: AccountTypes
+}
+ 
