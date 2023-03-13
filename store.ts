@@ -23,3 +23,24 @@ export const useUserSettingsState = () => {
         setUserSettings: (data) => state.set(data),
     };
 };
+
+
+// AUTH STUFF
+// try {
+//     const { user } = await Auth.signUp({ username, password });
+//     console.log(user);
+// } catch (error) {
+//     console.log('error signing up:', error);
+// }
+
+// try {
+//     const user = await Auth.signIn(username, password);
+// } catch (error) {
+//     console.log('error signing in', error);
+// }
+
+// try {
+//     await Auth.signOut();
+// } catch (error) {
+//     console.log('error signing out: ', error);
+// }

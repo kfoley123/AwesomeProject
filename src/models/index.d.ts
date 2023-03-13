@@ -55,6 +55,7 @@ type EagerUserSettingsModel = {
   readonly id: string;
   readonly emailNotification?: boolean | null;
   readonly textNotification?: boolean | null;
+  readonly accountType?: AccountTypes | keyof typeof AccountTypes | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -67,6 +68,7 @@ type LazyUserSettingsModel = {
   readonly id: string;
   readonly emailNotification?: boolean | null;
   readonly textNotification?: boolean | null;
+  readonly accountType?: AccountTypes | keyof typeof AccountTypes | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }

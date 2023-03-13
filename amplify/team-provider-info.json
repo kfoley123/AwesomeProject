@@ -10,6 +10,15 @@
       "StackName": "amplify-tattooapp-staging-151049",
       "StackId": "arn:aws:cloudformation:us-east-2:797653841926:stack/amplify-tattooapp-staging-151049/95503e30-b9d5-11ed-ade6-0a6bfe447b3c",
       "AmplifyAppId": "deqj4jpcvymq5"
+    },
+    "categories": {
+      "auth": {
+        "tattooapp12cc3451": {},
+        "TattooApp": {}
+      },
+      "api": {
+        "TattooApp": {}
+      }
     }
   }
 }

@@ -11,7 +11,7 @@ import UserProfile from "./Screens/UserProfile/UserProfile";
 import UserSettings from "./Screens/UserSettings/UserSettings";
 
 //Amplify
-import { Amplify, DataStore } from 'aws-amplify'
+import { Amplify, DataStore} from 'aws-amplify'
 import awsconfig from './src/aws-exports'
 import {  UserModel, UserSettingsModel } from "./src/models";
 import {  useUserSettingsState, useUserState } from "./store";
@@ -97,6 +97,7 @@ export default function App() {
         </NavigationContainer>
     );
 }
+
 
 const styles = StyleSheet.create({
     profileimg: {

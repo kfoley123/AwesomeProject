@@ -131,6 +131,15 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
+                "accountType": {
+                    "name": "accountType",
+                    "isArray": false,
+                    "type": {
+                        "enum": "AccountTypes"
+                    },
+                    "isRequired": false,
+                    "attributes": []
+                },
                 "createdAt": {
                     "name": "createdAt",
                     "isArray": false,
